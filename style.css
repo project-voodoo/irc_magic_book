@@ -1,0 +1,97 @@
+table {
+  border : 1px solid;
+}
+th {
+  border : 0.1px solid;
+  border-width:thin;
+}
+td {
+  border : 0.1px solid;
+  border-width:thin;
+}
+td.calday {
+  border : 0px none;
+  font: bold 12px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+  text-align:center;
+}
+td.calender {
+  border : 0.1px solid;
+  font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+  border-width:thin;
+  text-align:center;
+  height:32px;
+  width: 24px;
+}
+tr.header {
+   text-align:center;
+} 
+td.time {
+        color: #000000;
+}
+td.nick1 {
+        color: #8A0808;
+}
+td.nick2 {
+        color: #DF7401;
+}
+td.nick3 {
+        color: #D7DF01;
+}
+td.nick4 {
+        color: #088A08;
+}
+td.nick5 {
+        color: #00FF80;
+}
+td.nick6 {
+        color: #04B4AE;
+}
+td.nick7 {
+        color: #0080FF;
+}
+td.nick8 {
+        color: #0000FF;
+}
+td.nick9 {
+        color: #8000FF;
+}
+td.nick10 {
+        color: #FF00FF;
+}
+td.nick11 {
+        color: #FF0080;
+}
+td.nick12{
+        color: #F781F3;
+}
+td.nick13 {
+        color: #81F7F3;
+}
+td.nick14 {
+        color: #8A0886;
+}
+td.nick15 {
+        color: #848484;
+}
+td.messagenobr {
+ border : 0.1px solid;
+ border-width: 0px 1px 0px 1px;
+}
+td.messagetopbr {
+  border : 0.1px solid;
+  border-width: 1px 1px 0px 1px;
+}
+td.messagebtbr {
+  border : 0.1px solid;
+  border-width: 0px 1px 1px 1px;
+}
+td.message{
+ color: #000000;
+ border : 0.1px solid;
+ border-width: 1px 1px 1px 1px;
+}
+div.footer {
+position: absolute; 
+top: 255%; 
+left: 240px;
+}

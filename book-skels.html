@@ -1,0 +1,43 @@
+<html>
+        <head>
+        <title>project-voodoo</title>
+        <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body >
+<table border='1'>
+<tr id="search"><th>DATE</th><th>2010-09-19</th><th>Search by str:<input id="text" type="text"><button id="search">Search</button><button id="clear">Clear</button></th></tr>
+<script>
+function clicknick (nick) {
+       /* alert('displaying nick '+nick+' messages');*/
+        $('tr').toggle(($('tr').hide())($('tr#search').show()|$('tr#header').show()|$('tr#'+nick).show()))
+        var str = '[only message\'s with \"'+nick+'\" are displayed] Message';
+        $("th#notification").html(str);
+};
+$("button#search").click(function () {
+       var pattern = $("input").attr("value");
+       var l = $("input").attr("value").length;
+      if ( l >= 3 ) {
+       var str = '[only message\'s with \"'+pattern+'\" are displayed] Message';
+        alert('search pattern: '+pattern);
+        $('tr').filter(function() {
+         $('tr').hide();
+         $('tr#search').show();
+         $('tr#header').show();
+        $("tr:contains(" +pattern+ ")").show();
+        $("th#notification").html(str);
+        });
+	} else {
+		alert("Must be atleast 3 chars!!");
+	}
+});
+$("button#clear").click(function () {
+        $('tr').hide();
+        $('tr').show();
+        var str = 'Message';
+        $("th#notification").html(str);
+});
+</script>
+<tr class="header "id="header"><th>TIME</th><th>Nick</th><th id="notification">Message</th></tr>
