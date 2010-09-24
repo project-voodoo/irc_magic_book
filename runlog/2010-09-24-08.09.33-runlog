@@ -1,0 +1,12 @@
+FILEDATE : 2010-09-21
+SKELLS to :logs/project-voodoo.log.2010-09-21
+SKELLS : DONE!
+CONVERTED 872 lines
+SKELLS to :output/index.html [DONE]
+MAKE CALENDERS: ./output/project-voodoo.log.2010-09-18.html : 2010-09-18 35.3%
+LEFT: 10
+MAKE CALENDERS: ./output/project-voodoo.log.2010-09-19.html : 2010-09-19 100%
+MAKE CALENDERS: ./output/project-voodoo.log.2010-09-20.html : 2010-09-20 100%
+MAKE CALENDERS: ./output/project-voodoo.log.2010-09-21.html : 2010-09-21 100%
+MAKE CALENDERS: [DONE]
+WRITING CALENDERS to output/index.html [DONE]

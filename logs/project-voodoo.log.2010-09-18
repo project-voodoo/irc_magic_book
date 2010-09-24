@@ -1,0 +1,177 @@
+[23:13] Trying server chat.eu.freenode.net:6667
+[23:13] Connected to chat.eu.freenode.net
+[23:13] -NOTICE- *** Looking up your hostname...
+[23:13] -NOTICE- *** Checking Ident
+[23:13] -NOTICE- *** Found your hostname
+[23:13] -NOTICE- *** No Ident response
+[23:13] Voodoo_logger joined #project-voodoo.
+[23:13] <sinc> and finally odin from here https://content.wuala.com/contents/Samsung%20Galaxy%20S/Firewares%20,%20Updates%20and%20Odin/Odin%20&%20.PIT/Odin3%20v1.3.exe?key=AfzUZSU4SpKU&dl=1
+[23:13] <theAlchemist> flash it via richtofens method
+[23:13] <theAlchemist> follow it to the letter
+[23:13] <DMoult> k getting odin 3v1
+[23:13] <theAlchemist> http://forum.xda-developers.com/showthread.php?t=780867
+[23:14] #project-voodoo is active but has no ops :(
+[23:14] <DMoult> eh which download do i get
+[23:14] <DMoult> there's a long list of them :/
+[23:14] Liliniser (5607ea1f@gateway/web/freenode/ip.86.7.234.31) left irc: Quit: Page closed
+[23:14] <theAlchemist> for csc?
+[23:14] <theAlchemist> which country are you in?
+[23:14] Phil___ (~Phil@ven34-4-78-248-132-156.fbx.proxad.net) left irc: Quit: Bye
+[23:14] <DMoult> UK
+[23:14] <theAlchemist> the main file is GT-I9000_I9000XWJM8_I9000XXJM4_CODE-MODEM.7z
+[23:15] #project-voodoo (+ctn) : [m/68 o/0 h/0 v/0 n/68 b/0 e/0 I/0]
+[23:15] <theAlchemist> CSC_I9000OXAJM1.rar
+[23:15] <theAlchemist> ^ that is the csc file^
+[23:16] <theAlchemist> flash with pit first only repartition ticked
+[23:16] <DMoult> k downloading everything first
+[23:16] <theAlchemist> cool
+[23:16] <theAlchemist> wait until it says PASS before disconnecting
+[23:16] <DMoult> rawr, rapidshare limit reached
+[23:16] <DMoult> with just one download
+[23:17] <theAlchemist> mirror?
+[23:17] <DMoult> none available
+[23:17] <DMoult> 1 minute for rapidshare download lol
+[23:17] <DMoult> minesweeper time
+[23:17] <theAlchemist> lol
+[23:18] <sinc> which file did it start downloading?
+[23:18] <DMoult> try again in 12 minutes ._.
+[23:19] <DMoult> downloaded the JM1 first
+[23:19] <theAlchemist> ok, i gotta go
+[23:19] <theAlchemist> sounds like you should be fine
+[23:19] <DMoult> can't get the GT-I9000_I9000XWJM8_I9000XXJM4_CODE-MODEM.7z
+[23:19] Chainfire (~Chainfire@unaffiliated/chainfire) joined #project-voodoo.
+[23:19] <DMoult> thanks theAlchemist
+[23:19] <DMoult> can anyone give me a mirror to GT-I9000_I9000XWJM8_I9000XXJM4_CODE-MODEM.7z?
+[23:19] <theAlchemist> another reason for having 3 button mode samsung!
+[23:19] <sinc> http://www.zshare.net/download/803047675ada9005/ try this one
+[23:20] #project-voodoo (+ctn) : [m/69 o/0 h/0 v/0 n/69 b/0 e/0 I/0]
+[23:20] <DMoult> k, 45 seconds, minesweeper agian
+[23:22] <sinc> oh btw, usually people like to flash those files without having sim card or sd card inside the phone
+[23:22] <sinc> so just to be safe, I would remove those first and then go back into download mode
+[23:22] <DMoult> do i have to switch off phone to remove them?
+[23:22] <sinc> yup
+[23:23] <DMoult> er
+[23:23] <DMoult> it says 'do not turn off target'
+[23:23] <DMoult> what does that mean
+[23:23] <sinc> nothing at the moment
+[23:23] <DMoult> do i have to pull battery
+[23:23] <DMoult> power button doesn't seem to work
+[23:23] <sinc> since you aren't downloading anything into your phone yet
+[23:23] <sinc> yes, pull the battery off
+[23:25] #project-voodoo (+ctn) : [m/69 o/0 h/0 v/0 n/69 b/0 e/0 I/0]
+[23:27] <sinc> let me know when you have everything downloaded and the phone is back in the download mode without sim card and sd card
+[23:28] <DMoult> can't seem to get into download mode now :/
+[23:30] #project-voodoo (+ctn) : [m/69 o/0 h/0 v/0 n/69 b/0 e/0 I/0]
+[23:30] <sinc> for me this method always works; first press the volume down button, then home and finally power, always in that order
+[23:31] <sinc> if you press the power button first it won't go into download mode
+[23:31] <DMoult> jusnothing...
+[23:32] <DMoult> endless rebooting
+[23:32] <sinc> pull the battery and try again :-/
+[23:33] <DMoult> amdoing so
+[23:33] <DMoult> how many times should the first splash screen show
+[23:33] <DMoult> before hitting download mode
+[23:33] <sinc> it should go into that mode immediately
+[23:34] <DMoult> it's just shpwing splash screen, black, repeat
+[23:34] <sinc> do you have the usb plugged in?
+[23:34] <DMoult> no
+[23:34] <sinc> k
+[23:35] #project-voodoo (+ctn) : [m/69 o/0 h/0 v/0 n/69 b/0 e/0 I/0]
+[23:35] <sinc> just to make absolutely clear, you are pressing vol down button, right?
+[23:35] <DMoult> ywwes;['
+[23:35] <DMoult> yes
+[23:36] <sinc> really strange, since it worked just fine before
+[23:36] <DMoult> could battery level affec tit?
+[23:36] <DMoult> currently at like 5% i think
+[23:36] <sinc> that could be it, leave it to charge for maybe 30 minutes and try again
+[23:39] <DMoult> btw, will the fact that i have voodoo installed impact anything?
+[23:39] <DMoult> i thought generally you have to disable voodoo before flashing
+[23:40] #project-voodoo (+ctn) : [m/69 o/0 h/0 v/0 n/69 b/0 e/0 I/0]
+[23:40] pcpbit (~sol@S01060022b0b92093.fm.shawcable.net) joined #project-voodoo.
+[23:40] <rafyvitto> dmoult, did you manage to flash you device, i was afk =]
+[23:41] <DMoult> rafyvitto, nope, still fighting with getting into download mode
+[23:41] <rafyvitto> fark...
+[23:41] <DMoult> and only 70% of the JM8 downloaded so far lol
+[23:41] <rafyvitto> oh ok
+[23:41] <DMoult> currently suspecting lack of battery, so leaving it to charge for a bit before i resume fighting for download mode
+[23:41] <DMoult> got it once, but then rebooted so i could remove my sim/sd card, and now can't get back to it :(
+[23:42] <DMoult> but yeah, can i flash without disabling voodoo?
+[23:43] <rafyvitto> sure
+[23:43] <rafyvitto> flashing it will put it back to stock OEM settings
+[23:43] <DMoult> If you forgot to read this giant documentation and installed another Kernel or Firmware without disabling lagfix first, well… that’s too bad, but it’s repairable by 2 options:
+[23:43] <DMoult> ?
+[23:43] <rafyvitto> liek when you got it outod the box
+[23:43] <DMoult> Re-installing Voodoo by flashing the Kernel with Odin: Your ext4 data will be back if the previous procedure dind’t format DATA partition
+[23:43] <DMoult> Starting into recovery and wipe data. Warning, like it says, you’ll loose your personal data. If you don’t have backup, use this option in last resort.
+[23:43] <DMoult> hm, ok
+[23:44] tristecire (~Android@ARennes-555-1-67-106.w81-48.abo.wanadoo.fr) joined #project-voodoo.
+[23:45] #project-voodoo (+ctn) : [m/71 o/0 h/0 v/0 n/71 b/0 e/0 I/0]
+[23:45] <DMoult> can i try to get into download mode while it's plugged into the wall charger (ie not the computer usb charger)?
+[23:45] <sinc> yeah
+[23:45] <sinc> should work
+[23:46] <DMoult> k
+[23:46] <DMoult> Click "PDA" button and select "CODE_I9000XWJM8.tar.md5" file.
+[23:46] <DMoult> Click "MODEM" button and select "MODEM_I9000XXJM4.tar.md5" file.
+[23:46] <DMoult> Click "CSC" button and select the desired version "CSC_I9000???JM?.tar.md5".
+[23:46] <DMoult> do i need to download the JM8 and JM4 files as well?
+[23:46] <sinc> those are in that bigger file that you are downloading
+[23:46] <DMoult> k
+[23:47] <sinc> down forget selecting .pit file and ticking repartition
+[23:47] <sinc> don't
+[23:47] <sinc> *
+[23:49] <DMoult> ffs wish i had quick boot working
+[23:49] sol82 (~sol@S01060022b0b92093.fm.shawcable.net) joined #project-voodoo.
+[23:50] #project-voodoo (+ctn) : [m/72 o/0 h/0 v/0 n/72 b/0 e/0 I/0]
+[23:51] <DMoult> is there any way to get download through the computer
+[23:51] <DMoult> some command or something?
+[23:51] <sinc> not really
+[23:51] <DMoult> ffs
+[23:52] <rafyvitto> yo
+[23:52] solipsism (~sol@S01060022b0b92093.fm.shawcable.net) left irc: 
+[23:52] <DMoult> all this because i was playing with the fancy pattern lock
+[23:52] <DMoult> sigh
+[23:52] <rafyvitto> im here sorry was afk again lol
+[23:52] pcpbit (~sol@S01060022b0b92093.fm.shawcable.net) left irc: 
+[23:52] <DMoult> no worries :P
+[23:52] <Unhelpful> if adb is working, adb reboot download. :)
+[23:52] <DMoult> can't turn on phone
+[23:52] sol82 (~sol@S01060022b0b92093.fm.shawcable.net) left irc: Client Quit
+[23:52] <rafyvitto> yes
+[23:52] <rafyvitto> is it charged?
+[23:52] <DMoult> about 20%
+[23:52] <Venim> wait
+[23:52] <Venim> hold on
+[23:52] <rafyvitto> and it dosnt turned on? us ure :P
+[23:52] <rafyvitto> u sure*
+[23:52] <DMoult> it turns on
+[23:53] <DMoult> but loops on the boot logo
+[23:53] <Venim> DMoult: did you change the android.policy thing
+[23:53] <DMoult> Venim, don't even know what that is
+[23:53] <Venim> nvm then
+[23:54] <DMoult> what exactly is adb btw, is it a computer thing or on the phone?
+[23:54] <DMoult> i always assumed it was from the phone
+[23:54] <rafyvitto> dmoult, you need to do it manually
+[23:54] <Venim> computer
+[23:54] <DMoult> so can i hook phone up via usb and boot it to download via abd?
+[23:54] <DMoult> adb*
+[23:54] <Venim> yes
+[23:54] <Jasonyump> Hey guys, anyone else notice any lag in 3d gaming with the voodoo kernel. 1.5?
+[23:54] <DMoult> what is this adb?
+[23:54] <rafyvitto> yes but it has to be in userland or recvery
+[23:54] <rafyvitto> recovery*
+[23:54] <sinc> it's part of android sdk
+[23:55] #project-voodoo (+ctn) : [m/69 o/0 h/0 v/0 n/69 b/0 e/0 I/0]
+[23:55] <sinc> command line program
+[23:55] <DMoult> can't get to those
+[23:55] <DMoult> least, don't think i can
+[23:55] <rafyvitto> put it manually in download mode.. :P
+[23:55] <rafyvitto> jason, you a captivate user right?
+[23:55] <sinc> doesn't seem to work for him
+[23:56] <DMoult> it worked once, then i pulled battery to remove sim/sd card, then now it won't work again
+[23:56] <rafyvitto> you might have to reflash your second bootloader =]
+[23:56] <DMoult> it's dodgy too, i see the first samsung galaxy s splash screen about 4-5 times before the yellow icon shows
+[23:56] <rafyvitto> but its very very risky...
+[23:56] <Jasonyump> Yeah captivate user Rafyvitto
+[23:57] <rafyvitto> 3d is perfectly fine for me..im on jh7 with v1.6 lagfix
+[23:57] Writing user file...
+[23:57] Writing channel file...
+[23:57] * DEAD BY REQUEST OF curio_!~curio@dsl.curio.be

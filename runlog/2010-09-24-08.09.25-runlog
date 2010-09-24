@@ -1,0 +1,44 @@
+FILEDATE : 2010-09-18
+SKELLS to :logs/project-voodoo.log.2010-09-18
+SKELLS : DONE!
+CONVERTED 177 lines
+FILEDATE : 2010-09-18
+SKELLS to :logs/project-voodoo.log.2010-09-18.html
+SKELLS : DONE!
+CONVERTED 0 lines
+FILEDATE : 2010-09-19
+SKELLS to :logs/project-voodoo.log.2010-09-19
+SKELLS : DONE!
+CONVERTED 2445 lines
+FILEDATE : 2010-09-19
+SKELLS to :logs/project-voodoo.log.2010-09-19.html
+SKELLS : DONE!
+CONVERTED 0 lines
+FILEDATE : 2010-09-20
+SKELLS to :logs/project-voodoo.log.2010-09-20
+SKELLS : DONE!
+CONVERTED 2128 lines
+FILEDATE : 2010-09-20
+SKELLS to :logs/project-voodoo.log.2010-09-20.html
+SKELLS : DONE!
+CONVERTED 0 lines
+FILEDATE : 2010-09-21
+SKELLS to :logs/project-voodoo.log.2010-09-21
+SKELLS : DONE!
+CONVERTED 872 lines
+FILEDATE : 2010-09-21
+SKELLS to :logs/project-voodoo.log.2010-09-21.html
+SKELLS : DONE!
+CONVERTED 0 lines
+SKELLS to :output/index.html [DONE]
+MAKE CALENDERS: ./output/project-voodoo.log.2010-09-18.html : 2010-09-18 1.6%
+LEFT: 10
+MAKE CALENDERS: ./output/project-voodoo.log.2010-09-18.html.html : 2010-09-18 1.6%
+MAKE CALENDERS: ./output/project-voodoo.log.2010-09-19.html : 2010-09-19 1.6%
+MAKE CALENDERS: ./output/project-voodoo.log.2010-09-19.html.html : 2010-09-19 1.6%
+MAKE CALENDERS: ./output/project-voodoo.log.2010-09-20.html : 2010-09-20 1.6%
+MAKE CALENDERS: ./output/project-voodoo.log.2010-09-20.html.html : 2010-09-20 1.6%
+MAKE CALENDERS: ./output/project-voodoo.log.2010-09-21.html : 2010-09-21 1.6%
+MAKE CALENDERS: ./output/project-voodoo.log.2010-09-21.html.html : 2010-09-21 1.6%
+MAKE CALENDERS: [DONE]
+WRITING CALENDERS to output/index.html [DONE]

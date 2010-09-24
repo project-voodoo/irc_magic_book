@@ -1,0 +1,872 @@
+[00:00] <Phlogi> lol google is too cool: "Woohoo! You've read all the important messages in your inbox."
+[00:01] damel (damel@212.79.102-84.rev.gaoland.net) left #project-voodoo.
+[00:01] <curio_> Unhelpful, you think the OneNAND partition layout (.pit?) would be reused as MTD partitions ?
+[00:02] <curio_> Unhelpful: fsr.ko, fsr_stl.ko, j4fs.ko, param.ko, rfs_fat.ko, rfs_glue.ko
+[00:02] <curio_> that's the list of OneNAND - RFS related modules in ramdisk
+[00:03] WasMachinator (~jj@541C132A.cm-5-5a.dynamic.ziggo.nl) left irc: 
+[00:03] <curio_> Unhelpful, i feel you're kind of interested by this experiment do you ? ;)
+[00:04] <mickeko> Crap... Why is hypnotoads eyes suddenly on the wrong place... Something has gone wrong :(
+[00:04] <curio_> haha mickeko
+[00:04] <curio_> who you wanted to be the tester ^^
+[00:05] <curio_> [*] Using TinyFSR for Cramfs
+[00:05] <curio_>       OneNAND type (OneNAND 4K page)  --->
+[00:05] <curio_> (0xB0000000) Flex-OneNAND flash Physical Location
+[00:05] <mickeko> It should be safe to clear the dalvik-cache even with voodoo installed, right?
+[00:05] <curio_> (0)   LinuStoreIII Tiny Debugging verbosity (0 = quiet, 3 = noisy)
+[00:06] <curio_> mickeko, no difference
+[00:06] stefanauss (~stefanaus@94.166.178.88) left irc: Quit: Sto andando via
+[00:06] <curio_> Unhelpful, yeah you're right :
+[00:06] <curio_> --- Memory Technology Device (MTD) support
+[00:06] <curio_> < >   OneNAND Device Support (NEW)  --->
+[00:06] <curio_> --- OneNAND Device Support
+[00:06] <curio_> [ ]   Verify OneNAND page writes (NEW)
+[00:06] <Unhelpful> ALL GLORY TO THE HYPNOTOAD
+[00:06] <curio_> < >   OneNAND Flash device via platform device driver (NEW)
+[00:06] <curio_> [ ]   OneNAND OTP Support (NEW)
+[00:07] <curio_> [ ]   OneNAND 2X program support (NEW)
+[00:07] <Unhelpful> curio_: surely the .pit writes partitioning data *somewhere* :P
+[00:07] <jusama14> curio_, does the lagfix have any performance improvements while listening to music? For example if I'm listening to a song and scrolling through albums music will occasionally lag/skip
+[00:07] <Phlogi> curio_: what kernel version is this?
+[00:07] <mickeko> jusama14: It'll skip less, but it still skips at times.
+[00:08] <curio_> jusama14, yes it will improve it a little bit
+[00:08] <curio_> Phasmatis, it's in samsung's sources for I9000
+[00:08] <jusama14> oh
+[00:08] <Phlogi> right
+[00:08] <jusama14> do you know what actually causes that skip?
+[00:08] <jusama14> is it just crap coding on samsung's part?
+[00:09] <curio_> jusama14, several layers of bad coding :/
+[00:09] <jusama14> Do you think a custom rom such as CM6 will completely fix this issue?
+[00:09] <Chainfire> curio_
+[00:10] <Chainfire> whats the command to execute a shell script from init.rc ?
+[00:10] <Chainfire> mine dont seem to be executed ...
+[00:10] <curio_> Chainfire, you cant
+[00:10] <curio_> Chainfire, you have to cheat a little bit
+[00:11] <curio_> Chainfire, exec implementaiton is broken
+[00:11] <Chainfire> I tried imitating the playlogos1 trick but that didnt work either
+[00:11] <Phlogi> jusama14: yes :p
+[00:11] <curio_> Chainfire, you can ceate a oneshot service , but you have to accept it will be non-blocking
+[00:11] <jusama14> :)
+[00:11] <Chainfire> thats fine
+[00:11] <curio_> Chainfire, or you use clever work done by Unhelpful ;)
+[00:12] <Chainfire> ill try it again
+[00:12] <Chainfire> i did try that before, perhaps my params were wrong or smth
+[00:14] <curio_> remember you need to declare the service
+[00:14] <curio_> and start it somewhere ;)
+[00:14] <Chainfire> friggin aye
+[00:14] <Chainfire> it worked this time
+[00:14] <Chainfire> you know what I did different
+[00:14] <Chainfire> unix EOL's instead of dos EOL's :D
+[00:15] <Chainfire> im running it like this:
+[00:15] <mickeko> Also known as "spelling things right" or "speaking the correct language" ;)
+[00:15] <Chainfire> service cfpatch /res/patch
+[00:15] <Chainfire> 	user root
+[00:15] <Chainfire> 	oneshot
+[00:15] <Chainfire> thats correct, no?
+[00:16] <Chainfire> mickeko> most tools I use (including linux tools) really don't care about such crap :) but yeah I do often forget to switch it
+[00:16] Phlogi_ (~quassel@194-91.1-85.cust.bluewin.ch) joined #project-voodoo.
+[00:17] <Chainfire> also, curio_, is there a command to install APK's, or will just copying them to /system/app suffice ?
+[00:17] <curio_> Chainfire, seems like you don't "cfpatch start" ?
+[00:18] <curio_> Chainfire, i have no idea!
+[00:18] <curio_> i think so
+[00:18] <curio_> it will be dexed at first launch
+[00:18] <Chainfire> you dont need to start a oneshot service
+[00:18] <Chainfire> apparently :D
+[00:18] <curio_> hmm the MTD OneNAND experiment is very tempting...
+[00:19] <curio_> Unhelpful, i can't belive you didn't talked about it sooner :D
+[00:19] <mickeko> curio_: It could have been helpful... And the nick says otherwise ;)
+[00:19] <curio_> hhahaha
+[00:20] <curio_> easy
+[00:29] <Unhelpful> curio_: i've considered it for a while.
+[00:30] <Unhelpful> Chainfire: an easy way to fire a blocking script from init.rc is to start it as a service, and have it read from a fifo on completion, and follow it in init.rc w/ write /path/to/fifo sync
+[00:31] <Unhelpful> because the init "write" command is extremely simple and just opens the file and writes under the assumption that it will immediately succeed or fail but won't block.
+[00:31] <curio_> you waited until the world would be smart enoutg to use this great power with goodwill ^^
+[00:31] Jim_panse (~yaaic@188.106.239.133) joined #project-voodoo.
+[00:32] Jim_panse (yaaic@188.106.239.133) left #project-voodoo.
+[00:32] <curio_> Unhelpful, i don't see anything special about "partitions" in MTD/OneNAND
+[00:32] <curio_> except "MTD partitioning support"
+[00:32] <Unhelpful> obviously the samsung driver reads partitioning information from *somewhere* though. :)
+[00:34] <curio_> yep, do we see that in dmesg bpot log ?
+[00:34] <Unhelpful> dunno but you can read the partition mapping from procfs too ;)
+[00:35] Phlogi_ (~quassel@194-91.1-85.cust.bluewin.ch) left irc: Remote host closed the connection
+[00:35] <curio_>    Symbol: MTD_ONENAND_OMAP2 [=n]                                                            
+[00:35] <curio_>    Prompt: OneNAND on OMAP2/OMAP3 support                                                    
+[00:35] <curio_>      Defined at drivers/mtd/onenand/Kconfig:30                                               
+[00:35] <curio_>      Depends on: (ALIGNMENT_TRAP || !CPU_CP15_MMU) && MTD && MTD_ONENAND && (ARCH_OMAP2
+[00:35] <curio_> Standard OMAP platforms use OneNAND too ?
+[00:37] <curio_> (0xB0000000) Flex-OneNAND flash Physical Location
+[00:37] <curio_> i think 0xB0000000 is related to where we find the first boot loader or at least the partition schema
+[00:40] Phlogi (~quassel@194-91.1-85.cust.bluewin.ch) left irc: Ping timeout: 264 seconds
+[00:40] Zilch25 (~Zilch25@adsl-065-006-177-166.sip.bct.bellsouth.net) joined #project-voodoo.
+[00:41] katsuru (~Snake@static-87-245-42-135.teleos-web.de) left irc: Ping timeout: 240 seconds
+[00:43] guv (~vircuser@frnk-590d3d8c.pool.mediaWays.net) joined #project-voodoo.
+[00:59] trile (48bdf767@gateway/web/freenode/ip.72.189.247.103) joined #project-voodoo.
+[01:00] <Shaun> method to track battery life problems = speak to experienced users who have similar day to day usage
+[01:03] <curio_> they don't have battery life problem ^^
+[01:05] <curio_> i think it's becoming a myth
+[01:05] <curio_> it must be a part of truth, with problems in some very rare configurations
+[01:05] <curio_> like with broken CSC
+[01:05] <Zilch25> i flash a lot of weird crap, and i never see any real increased battery drain =P
+[01:06] <Zilch25> i think to a certain degree people are just looking for problems so they become more aware of their battery draining
+[01:07] <Zilch25> plus... whats the first thing people do after they install voodoo?
+[01:07] <Zilch25> run a crapload of benchmarks, install a ton of games, and go nuts
+[01:07] <curio_> yep :D
+[01:07] <curio_> => i have to install 100+ apps to see if it slow downs or not
+[01:07] <curio_> :D
+[01:08] <Zilch25> "Why did my battery drop 10% in the last 5 minutes?!  All I did was play angry birds, bonzai blast, and run quadrant 15 times.. this is outrageous!"
+[01:08] <curio_> and then, surprisingly, with 25 new background services (10 of them crappy ones) it eats more battery ? :DF
+[01:08] <curio_> ahaha
+[01:10] IStern (42c92de2@gateway/web/freenode/ip.66.201.45.226) joined #project-voodoo.
+[01:17] <distortedloop> zilch25 and they're playing with their new phones more to see if they can get them to lag, so of course they drain battery.
+[01:17] <Zilch25> i know lol thats the point i was making
+[01:18] <distortedloop> lol, yeah, I was reading and typing at the same time.  d'oh!
+[01:18] <curio_> i think there are some very valid real problems
+[01:19] <curio_> but it's really hard to find them now that they're dawn in a false report flood
+[01:19] <Zilch25> probably, but its hard to conclude its Voodoo when everyone is running the firmware dujour
+[01:19] Nick change: Kaik541 -> Kaik|Reach
+[01:20] <distortedloop> There might be, but every frickin' new rom that comes out, new mod, new hack, whatever, the thread for it floods with "how's battery life" and "battery life worse for me".
+[01:20] evensteven (~steven@dslc-082-082-111-071.pools.arcor-ip.net) left irc: Ping timeout: 252 seconds
+[01:20] <mickeko> Not to mention quadrant screenshots :)
+[01:20] <curio_> hehe
+[01:21] <distortedloop> If the SGS didn't have lag so bad, battery life would be, just like it was with the N1 and other current phones, the main thing to stress about...well, with the SGS, maybe the GPS also
+[01:21] <distortedloop> in fact, that's probably the real battery drain, f-ing around with the GPS to see if the latest firmware or voodoo or overclock patch has fixed it
+[01:22] <curio_> i feel radio and screen on SGS are using more power than on my iPhone 3Gs
+[01:22] <curio_> screen, of course : bigger, more pixels, brighter
+[01:23] <distortedloop> the screen might, and that's why they don't understand, because all they read in the blogs is how AMOLED/SuperAMOLED use less juice
+[01:23] <curio_> marketing BS ?  ^^
+[01:23] <distortedloop> they forget that they have a much bigger screen, so even if it's saving juice for its screen size, it's still using more than a screen 25% smaller
+[01:23] <curio_> maybe less juice than a standard AMOLED
+[01:23] <curio_> but SGS's screen is configured to be very bright
+[01:24] <curio_> even when the ambiant light is dark
+[01:24] <curio_> if you compare auto-brightness of an iPhone <> SGS in the same conditions, i'm sure SGS is brighter
+[01:25] <curio_> btw it's something i plan to integrate, like on iPhone :
+[01:25] <mickeko> I need to get some sleep. Night you all!
+[01:25] <curio_> see ya mickeko !
+[01:25] <distortedloop> yeah, that's true, but is it marketing or engineering screw up.  I think you hit it on the head the other day when you suggested that the screen is brighter to hide the fact that some of us have blue phones and some red on your lowest settings.
+[01:26] <curio_> => an auto brightness offset ajudstement.
+[01:26] <mickeko> mine is yellowish :P
+[01:26] <curio_> :(
+[01:26] <distortedloop> right, so they bump up the minimum to hide the differences
+[01:26] <curio_> it makes me sad that they made 2 different revisions of the screen :(
+[01:26] <distortedloop> I think that's common in the business
+[01:26] <mickeko> What I really want is a red hue on the lowest setting. Best for night vision.
+[01:27] <mickeko> Anyways, I was on my way out. :) *waves*
+[01:28] <distortedloop> the EVO 4G had a couple of screen revisions in the early days.  Mine was WAY TOO PINK.  Part of why I returned it
+[01:28] mickeko (50d80e4b@gateway/web/freenode/ip.80.216.14.75) left irc: Quit: Page closed
+[01:28] xan (5307c28e@gateway/web/freenode/ip.83.7.194.142) joined #project-voodoo.
+[01:28] <xan> hello
+[01:28] <xan> :)
+[01:29] Action: distortedloop must head out the door as well
+[01:29] <distortedloop> adios
+[01:30] distortedloop (~dave@206.29.188.232) left irc: Quit: distortedloop
+[01:31] curio_ (~curio@82.239.31.81) left irc: Ping timeout: 265 seconds
+[01:31] rafyvitto_ (~IceChat7@24.139.124.84) left irc: Ping timeout: 272 seconds
+[01:34] <Chainfire> WOOT
+[01:34] <Chainfire> patched kernel for JPH now fully supporting 2e recovery and specific fix for ClockworkMod
+[01:41] rafyvitto_ (~IceChat7@24.139.124.84) joined #project-voodoo.
+[01:42] Nick change: rafyvitto_ -> rafyvitto
+[01:42] curio_ (~curio@dsl.curio.be) joined #project-voodoo.
+[01:46] Bird333 (~IceChat7@adsl-070-145-200-078.sip.mem.bellsouth.net) joined #project-voodoo.
+[01:47] xan (5307c28e@gateway/web/freenode/ip.83.7.194.142) left irc: Quit: Page closed
+[01:49] <Tux^verdreifelt> there is a patched JPH?
+[01:49] <Tux^verdreifelt> yummy.
+[01:50] <Unhelpful> Chainfire: "2e"?
+[01:56] <Unhelpful> curio_: init_logger.sh seems to be the same as init, they both call init.sh after redirecting output?
+[01:56] <Unhelpful> also you can do that in one script :)
+[02:00] CampGareth (~blahonhis@92.27.110.37) left irc: Read error: Connection reset by peer
+[02:00] katsuru (~Snake@static-213-182-112-222.teleos-web.de) joined #project-voodoo.
+[02:09] <curio_> init is a symlink to ini_logger.sh
+[02:10] <curio_> that's why they look alike ^^
+[02:11] draztik (44c28bed@gateway/web/freenode/ip.68.194.139.237) joined #project-voodoo.
+[02:13] Bumble-bee (~bee@cpc1-linc4-0-0-cust500.12-1.cable.virginmedia.com) joined #project-voodoo.
+[02:13] <Bumble-bee> Hi ppl
+[02:13] Nick change: Kaik|Reach -> Kaik541
+[02:14] Bumble-bee (~bee@cpc1-linc4-0-0-cust500.12-1.cable.virginmedia.com) left irc: Client Quit
+[02:19] Bumble-bee (~bee@cpc1-linc4-0-0-cust500.12-1.cable.virginmedia.com) joined #project-voodoo.
+[02:20] Bumble-bee (~bee@cpc1-linc4-0-0-cust500.12-1.cable.virginmedia.com) left irc: Client Quit
+[02:20] draztik (44c28bed@gateway/web/freenode/ip.68.194.139.237) left irc: Quit: Page closed
+[02:22] jake_ (a6d8c23e@gateway/web/freenode/ip.166.216.194.62) joined #project-voodoo.
+[02:24] <jake_> Hey guys, just read supercurio's tweet about the vibrants lagfix being rereleased soon. my question is: why would he state a captivate version is being ported soon if captivate already has voodoo?
+[02:24] Bird333 (~IceChat7@adsl-070-145-200-078.sip.mem.bellsouth.net) left irc: Ping timeout: 276 seconds
+[02:25] <jake_> zilch25, any ideas?
+[02:25] <Zilch25> no idea
+[02:25] <jake_> lol thanks
+[02:25] <Kaik541> maybe it's an updated version or Unhelpful is incorporating it and he's specifically referring to Unhelpful's
+[02:26] atinm (~atin@c-65-96-163-78.hsd1.ma.comcast.net) joined #project-voodoo.
+[02:26] <jake_> maybe he meant fascinate or epic???
+[02:26] <Chainfire> Unhelpful> 2e = older recovery version... doesnt care so much about signed keys etc
+[02:27] <atinm> something now cares about keys?
+[02:27] <jake_> unhelpful is incorporating it into his kernel? but i thought atinm has already done this
+[02:27] <atinm> unhelpful is doing it to the oc/uv kernel
+[02:27] <atinm> I took unhelpful's kernel, and took all that out, leaving basically stock
+[02:28] katsuru (~Snake@static-213-182-112-222.teleos-web.de) left irc: Read error: Connection reset by peer
+[02:28] <jake_> oh, why do we need oc/uv with the awesomeness that already exists? :P
+[02:29] <atinm> that you ask unhelpful - I'm not touching it :)
+[02:29] <Venim> jake_: uh, which tweet are you looking at
+[02:30] <jake_> Ahneeds oc with the speed voodoo offers?
+[02:30] <jake_> woops premature send
+[02:30] <jake_> its hard to do this on the captivate;)
+[02:31] <Unhelpful> Chainfire: ah, ok.
+[02:31] <Unhelpful> the captivate one cheerfully accepts test keys and that's fine for me. :)
+[02:31] <atinm> frick! unhelpful - is KBUILD_BUILD_VERSION a kernel config thing, or an environment thing?
+[02:31] <atinm> and is it CONFIG_KBUILD_BUILD_VERSION if config thing
+[02:32] <Unhelpful> atinm: huh?
+[02:32] <Chainfire> Unhelpful> I9000 2.1 does too... but the 2.2 roms dont
+[02:32] <atinm> curio want me to put that in
+[02:32] <atinm> and I'm not sure where it goes . . . it looks like it might be an environment variable to tell the kernel what string to add
+[02:33] <atinm> but neither is working for me - the kernel won't boot.
+[02:33] <atinm> which is totally weird.
+[02:33] <atinm> half a mind to forget about it.
+[02:34] <atinm> curio wants anything called "voodoo" to have Voodoo_lagfix_3.0" in the KBUILD_BUILD_VERSION for the kernel.
+[02:34] <atinm> and I thought I'd oblige
+[02:39] jake_ (a6d8c23e@gateway/web/freenode/ip.166.216.194.62) left irc: Ping timeout: 252 seconds
+[02:39] trile (48bdf767@gateway/web/freenode/ip.72.189.247.103) left irc: Quit: Page closed
+[02:42] <atinm> and xcaliburinhand didn't know what it is about the I9000 kernel that allows HSUPA while Captivate doesn't.
+[02:42] <Venim> does anyone know what makes those battery status framework mods work
+[02:44] <Venim> is it just the icon changes?
+[02:45] <Unhelpful> Venim: just icons afaik, maybe some xml to specify all the extra icons because stock doesn't have 100 icons ;)
+[02:45] <Venim> thought so
+[02:45] <Venim> but the xml file doesn't want to be open
+[02:45] <Venim> ed
+[02:49] <Venim> the only thing that will open them is a hex editor
+[02:52] Kaik541 (~Kaik541@cpe-174-111-246-012.triad.res.rr.com) left irc: Ping timeout: 240 seconds
+[02:54] Kaik541 (~Kaik541@cpe-174-111-246-012.triad.res.rr.com) joined #project-voodoo.
+[02:57] <Unhelpful> not really xml then, are they? ;)
+[03:01] <Venim> thats what i would assume
+[03:01] <Venim> i take it you don't know how to edit them?
+[03:03] <Shaun> is it normal for an sgs to refuse to charge from a usb hub being shared with a keyboard?
+[03:04] <Shaun> the phone got warm but stayed at 0%
+[03:04] <Venim> i could see that
+[03:04] <Venim> especially at 0%
+[03:07] <Chainfire> weee kernel seems to be operational... JPH patched, unsecured 2e recovery, ClockWorkmod nandroid working, latest superuser, busybox... all in a 5 mb odin pda flash.. :)
+[03:10] mcaflo (~mcaflo@r75-110-21-204.gvllcmtc01.gnvlnc.ab.dh.suddenlink.net) joined #project-voodoo.
+[03:11] Kaik541 (~Kaik541@cpe-174-111-246-012.triad.res.rr.com) left irc: Read error: Connection reset by peer
+[03:11] <rafyvitto> congrats chainfire
+[03:14] <Chainfire> thx rafy
+[03:19] <Shaun> kb for another pc broke so been swapping this one between here and there until i get a new remote for it tomorrow...easier to use a usb port than crawling under the desk to the port it normally uses :p
+[03:20] <Shaun> my board can push out 2800mA per port, but i'm probably right in thinking the phone won't take more than 500mA through a standard usb cable?
+[03:20] <Venim> ya it won't
+[03:21] <Venim> also, thats why i have a dedicated USB cable that sits in the back of my desktop and on my desk
+[03:21] <Venim> so that i can always just plug it in :p
+[03:27] bdube_ (~bdube@pool-96-226-236-106.dllstx.fios.verizon.net) joined #project-voodoo.
+[03:34] <atinm> curio_: http://bit.ly/9I73yT
+[03:34] <Venim> should've told me that was a download!
+[03:34] <atinm> latest captivate voodoo with your requested changes to /system and version
+[03:35] <atinm> Venim: I was talking to curio_  ;-)
+[03:35] <Venim> i know
+[03:35] <Venim> but come on
+[03:35] <Venim> you can't expect me to not click links
+[03:35] Rawat (~Admin@cpc2-dals4-0-0-cust452.hari.cable.virginmedia.com) left irc: Quit: Leaving
+[03:35] <atinm> lol - well, its the latest captivate kernel as per his request.
+[03:35] <atinm> now I'm really done with the thing.
+[03:35] <atinm> and unless I can figure out what makes it different from the I9000 kernel.
+[03:35] Nick change: inku -> bbl
+[03:35] <atinm> I'm not touch it
+[03:36] <Venim> it has to be some audio junk
+[03:36] <atinm> yeah . . . I saw lots of #ifdefs for KEPLER etc
+[03:36] <atinm> which the I9000 doesn't use
+[03:36] <Venim> ah
+[03:36] <atinm> at first I thought it was actually to enable features on our phone :)
+[03:36] <atinm> but now I'm thinking the reverse.
+[03:37] Action: Unhelpful pushes nilfs support back further :P
+[03:37] <Chainfire> there, posted. http://forum.xda-developers.com/showthread.php?t=788108
+[03:37] <Chainfire> now dinner.
+[03:38] <Unhelpful> 1) stock voodoo support 2) experiment w/ blockdev to reread partition table, speex audio compression 3) try to figure out APC1
+[03:38] <atinm> Unhelpful: lol :)
+[03:38] <kalpik> Chainfire: nice!
+[03:38] <Unhelpful> atinm: you said you have embedded background? :)
+[03:38] <atinm> nilfs fell off my list.
+[03:39] <atinm> Unhelpful: yes
+[03:39] Action: Shaun needs to get round to setting up adb on this pc
+[03:39] <Unhelpful> so dealing w/ talking to hardware is not entirely foreign to you i'm guessing? :)
+[03:39] <atinm> yes? :)
+[03:40] <Unhelpful> because i really *only* got anywhere w/ the clock control code because there was already *code* :/
+[03:40] <atinm> you mean you want me to hook up an oscillator to the thing? I need my hardware guys for stuff like that!
+[03:41] <Unhelpful> atinm: no, i mean i have some docs for a memory-mapped register interface for some of the SoC components and i may have some questions about what things mean ;)
+[03:41] <atinm> ok, try me - if nothing else, I have access to ppl
+[03:42] <atinm> i have been looking for hardware specs for our chips but I can't find most of what I am looking for
+[03:42] <atinm> like the broadcom chip :(
+[03:42] <atinm> that one is being kept under wraps. like all broadcom chips ...
+[03:43] <atinm> that broadcom chip is the source of our problems with GPS and why we can't run air-crack :)
+[03:43] <Unhelpful> i have the s5pc11x docs but they're um, incomplete, contradictory, and probably some other kinds of wrong too.
+[03:43] <atinm> gimme
+[03:44] <Unhelpful> and that's only for the SoC so it gives you nothing for peripherals that aren't built in, sorry.
+[03:44] <Unhelpful> but if it'll be of use, here you go: http://forum.xda-developers.com/showthread.php?t=745877&highlight=S5PC110
+[03:45] <Unhelpful> but as i said, contradictory. i have seen *at least* two different maximum clocks given for each clock-source PLL, for example.
+[03:46] <atinm> downloading
+[03:46] <Unhelpful> and the code sets some "ARM MCS" thing on entering 100MHz. i can't find anything about this anywhere. the address it pokes is in the clock-control region, but is documented as a reserved area, heh.
+[03:47] Kaik541 (~Kaik541@cpe-174-111-246-012.triad.res.rr.com) joined #project-voodoo.
+[03:48] <Unhelpful> anyway the APC1 is our stability-assessment hardware :)
+[03:49] <atinm> holy crap - 2426 pages. its the real thing
+[03:52] <Unhelpful> hah
+[03:52] <Unhelpful> have fun trying to find anything useful in there that you can be sure about.
+[03:52] <Unhelpful> what do you want from it, anyway? :)
+[03:53] <atinm> ok, APC1 ..
+[03:53] <atinm> the voltage information registers. what is our base address?
+[03:54] Action: Unhelpful had assumed the addresses given were absolute? :/
+[03:55] <atinm> not usually.
+[03:55] <atinm> but these are 32 bit addresses
+[03:55] <atinm> still - sometimes you have to put an address in for the base and then you can put this address in to actually read the register.
+[03:55] <atinm> let me check my other processor specs
+[03:55] <atinm> I have another cortext-a8 chip
+[03:56] <atinm> a test board.
+[03:56] <Unhelpful> they are 32 bits, but they may not be absolute. when i tried to read the clock controls based on these addresses alone, i got nothing.
+[03:56] <Unhelpful> had to use the macros from the arch/arm/plat-* stuff to get it right
+[03:56] <atinm> yeah.
+[03:56] guv (~vircuser@frnk-590d3d8c.pool.mediaWays.net) left irc: Quit: User pushed the X - because it's Xtra, baby
+[03:57] <atinm> my cards have the processor sitting at a different address depending on which kind of card. so this has to be the same.
+[03:57] <atinm> let me read some more and look at the code too
+[03:59] <Unhelpful> oh hey: arch/arm/plat-s5pc1xx/s5pc1xx-cpufreq.c:        __raw_writel( corevdd_value[0], S5P_APC_PL1_COREVDD);
+[03:59] <Unhelpful> so, looks like there may be macros for at least some of the addresses :D
+[04:00] <Unhelpful> and a bunch of similar defines in a header, most of which have names i recognize from the docs :D
+[04:01] <atinm> point me at one of the macros in the header
+[04:01] <Unhelpful> they're in arch/arm/plat-s5pc1xx/include/plat/regs-clock.h, S5P_APC_*
+[04:02] <Unhelpful> probably best to just use the macros if they define all of the registers we need.
+[04:02] <atinm> yes, you need the S3C_VA_SYS
+[04:02] <atinm> that is the base . ..
+[04:03] <atinm> but they have the macros
+[04:03] <atinm> so you can just use them
+[04:03] <Unhelpful> the interface i've seen w/ the clock controls is basically a bunch of packed control values in each register, you read-modify-write, and possibly poll another register to wait for the change to be effective
+[04:03] <atinm> yup. that's the usual way
+[04:04] <Unhelpful> "that's all i have to do to do driver design"?! ;)
+[04:04] <atinm> lol. yes.
+[04:04] <atinm> it is a pain in the ass.
+[04:04] <atinm> bit twiddling of the worst kind
+[04:05] <atinm> and you don't know what happened when it doesn't work because the hardware stops responding
+[04:05] Chainfire (~Chainfire@unaffiliated/chainfire) left irc: Disconnected by services
+[04:05] <atinm> makes it hell to debug remotely!
+[04:05] Chainfire_ (~Chainfire@unaffiliated/chainfire) joined #project-voodoo.
+[04:05] Nick change: Chainfire_ -> Chainfire
+[04:05] <Unhelpful> i bet. :)
+[04:05] <atinm> we actually have power supplies connected to our boards that we can reset remotely too to hard reset ;)
+[04:05] <Unhelpful> or at all probably
+[04:06] <Shaun> Unhelpful: my HTPC is being like you at the moment!
+[04:06] <Unhelpful> :(
+[04:06] <Shaun> it's decided it cant be arsed giving me audio to go with my video
+[04:06] <atinm> but since i would usually work on the boot code, I was living in the labs a lot
+[04:07] <Shaun> but then i shouldnt be watching video at 3am anyway, so it's off to bed!
+[04:07] <atinm> well, ask me if you have anything specific and I'll see if I can decipher it - but I think you'll figure it out too. the spec looks like a lot of the specs I've used so I do sort of trust it.
+[04:08] <atinm> but they do make mistakes - but those sorts of mistakes I'd need my hardware guys for.
+[04:08] <atinm> and they'd tell me "yeah - that's a bug in the chip"
+[04:08] <atinm> and I'd always be surprised - as a software person, hardware is not supposed to have bugs ;)
+[04:09] Nick change: Kaik541 -> Kaik541|LoL
+[04:09] <atinm> I learned - since we designed our own hardware too - and it is just code too!
+[04:09] Kaik541|LoL (Kaik541@cpe-174-111-246-012.triad.res.rr.com) left #project-voodoo ("Leaving").
+[04:09] <atinm> anyway - g'nite. off to bed. have to wake early tomorrow
+[04:09] Astralgeist] (~astral@92.90.20.1) left irc: Quit: Bye
+[04:09] <Unhelpful> i was going to say, a fair bit of hardware these days is also "just code" w/ software left to do the bulk of the routing of traces and selection and placement of gates.
+[04:10] <Unhelpful> don't trust it too far, like i said, we already know it's incomplete, and self-contradictory as well. :(
+[04:11] <atinm> sometimes when I thought I was seeing contradictory things - it would turn out they called a similar signal by the same name in two different subsystems.
+[04:11] <atinm> frequently happened with clocks.
+[04:12] <atinm> so recheck if you see those.
+[04:12] <Unhelpful> the description of what MPLL and APLL are and do has sadly been consistent. just not their maximum frequencies.
+[04:13] <atinm> ah.. I'll look too.
+[04:13] <atinm> well, good night.
+[04:13] atinm (atin@c-65-96-163-78.hsd1.ma.comcast.net) left #project-voodoo.
+[04:20] jrjunior (7a98a406@gateway/web/freenode/ip.122.152.164.6) joined #project-voodoo.
+[04:29] Mish- (~mish@194.28.69.111.dynamic.snap.net.nz) joined #project-voodoo.
+[04:30] <Mish-> Silly question time! - I get my i9000 tomorrow and will first install either the Voodoo or RyanVZ Lag Fix, can someone explain the main difference in these in terms of breaking future upgrades?
+[04:31] <Unhelpful> Mish-: one is a NastyHack. ;)
+[04:31] <Unhelpful> the other is a CleverHack
+[04:32] <Mish-> Heh.  Correct me if I'm wrong, it's RyanVZ's more of an application side 'hack' and the Voodoo a complete firmware?
+[04:34] <Unhelpful> Voodoo is a kernel replacement that replaces the on-disk filesystem with ext4 instead of RFS, and uses some clever hacks to make sure this is safe if you flash a stock firmware/kernel or something like that
+[04:35] <Mish-> Excellent.
+[04:35] <Unhelpful> the RyanZA hack afaik is still a script wrapped around an application that is started the same time as all other system applications, and is basically racing to finish before anything needs the stuff in /data.
+[04:36] <Mish-> Next question, so it'll install on top of Froyo?  How and where can I get the latest (pre-release obviously) Froyo for the i9000?
+[04:39] <Unhelpful> um, no, no kernel replacements can work on froyo yet, we don't have sources for the kernel in the betas
+[04:39] <Unhelpful> samsung can choose not to release it because they have not *actually* released any betas
+[04:41] <Mish-> Last question: What would happen if I install Voodoo then update the firmware to Froyo at some point?
+[04:45] <Unhelpful> flashing a new firmware will wipe your files. :P
+[04:47] <Mish-> Because of the different filesystem?
+[04:50] <Unhelpful> well, if you flash one of the Odin updateable firmwares it's going to wipe any of they system partitions anyway :P
+[04:50] trigrou (~trigrou@bdv75-6-82-230-176-34.fbx.proxad.net) left irc: Ping timeout: 252 seconds
+[04:51] dan6a (~blog@203-158-35-213.dyn.iinet.net.au) joined #project-voodoo.
+[04:51] <Mish-> Any thoughts on this... It looks like the Froyo release will still be "FAT" and therefore slow.   If I'm right then this means that if I get the phone, install the Voodoo lag fix, then update to official Froyo when released, it'll blat everything?
+[04:52] <dan6a> If the FroYo is relying souly on JIT to give it speed whilst not addressing the FAT structure im moving to HTC HD
+[04:52] <Mish-> lol
+[04:53] <dan6a> im serious :) xda are killing samsungs own team atm
+[04:54] <Mish-> I'm new to android, I assumed that this would always be the case?
+[04:55] <Mish-> I mean a big corporate updating millions of phones has to do a lot more testing...
+[04:55] <Unhelpful> dan6a: once froyo releases we'll probably see sources shortly :P
+[04:58] <Mish-> Put it this way, has anyone checked to see if the leaked Samsung Froyo is still using FAT?
+[04:58] <Mish-> I'm assuming it's NOT since Ryan's lagfix still works on it.
+[05:00] ksizzle9_ (6151b7dd@gateway/web/freenode/ip.97.81.183.221) joined #project-voodoo.
+[05:00] <ksizzle9_> fscinate user here. what do the benchmarks look like with the voodoo applied? curious aobut this with people asking over in the fascinate channel
+[05:01] <Mish-> So I'm guessing what I'm after The Froyo release with the Voodoo lag fix.  Hope it comes out quickly after the Froyo release. :)
+[05:06] mcaflo (~mcaflo@r75-110-21-204.gvllcmtc01.gnvlnc.ab.dh.suddenlink.net) left irc: 
+[05:13] Nick change: bbl -> inku
+[05:13] bdube_ (~bdube@pool-96-226-236-106.dllstx.fios.verizon.net) left irc: Quit: This computer has gone to sleep
+[05:15] <ksizzle9_> froyo is just a myth at samsung apparently
+[05:18] <Unhelpful> SAUCE PLOX? ;P
+[05:22] <Mish-> Are most people using Voodoo on stock? Or is there a favourite custom ROM?
+[05:23] theAlchemist (theAlchemi@110-174-77-39.static.tpgi.com.au) left irc: Ping timeout: 272 seconds
+[05:24] <Unhelpful> but seriously, i've heard rumors of froyo release 9/23. i've seen several people claim to *know* there will be no froyo update. nobody is willing to state their sources.
+[05:26] <Mish-> Unhelpful: Closet thing to a confirmation: http://www.techmagdaily.com/samsung-galaxy-s-i9000-gets-android-2-2-froyo-on-september-23.html
+[05:26] <Venim> which was from a finnish twitter leak
+[05:26] <Mish-> Heh
+[05:27] <Mish-> Anyway, to repeat my last question: Are most people using Voodoo on stock? Or is there a favourite custom ROM?
+[05:28] <Unhelpful> i'm not really following custom ROMs @ all
+[05:29] knowsnotmuch (~ashwind@122.174.133.182) joined #project-voodoo.
+[05:30] <Mish-> Excellent, good to know.
+[05:31] <Unhelpful> woo, running mostly-stock voodoo from recovery :D
+[05:32] ksizzle9_ (6151b7dd@gateway/web/freenode/ip.97.81.183.221) left irc: Quit: Page closed
+[05:32] <rafyvitto> yeh custom roms are just, thems and pushed files really, its not like there building from source and adding kernel optimization's
+[05:33] <Unhelpful> erm, many of us are indeed building kernels from source. :P
+[05:33] <rafyvitto> yes kernel devs, like you atinm,curio etc
+[05:34] <rafyvitto> what im saying is that custom roms, are really just, automated file pushing, and themes into 1
+[05:37] <Unhelpful> mostly yeah, although don't some of them have bits built from AOSP?
+[05:38] <Mish-> Thanks for all the answers, I guess I'd also like to know... It's it worth using the i9000 when I get it before I install voodoo, or just install it straight away?
+[05:38] <rafyvitto> yes 2 have, barak,eugene_373
+[05:39] <rafyvitto> http://forum.xda-developers.com/showpost.php?p=8240456&postcount=25
+[05:39] <rafyvitto> watch 'coughnition" fanboys flaming me in a few minutes lol
+[05:40] <rafyvitto> they think "coughnition" is some sort of god born "custom rom", when in reality its just a bunch of stuff from all over the SGS forums into one single file push.
+[05:55] <Frd^> morning
+[06:00] <Mish-> Excuse an obvious question, but since Android is open source, why can't the source for 2.1 be used to make 2.2 work with the i9000?
+[06:06] theAlchemist (~Nanoduck@110-174-77-39.static.tpgi.com.au) joined #project-voodoo.
+[06:07] <knowsnotmuch> Mish-: getting a new galaxy? Maybe you should use it straight away ... just to see how voodoo helps :)
+[06:08] <Mish-> knowsnotmuch: Good point.
+[06:08] <knowsnotmuch> but it is inevitable that you do switch
+[06:30] knowsnotmuch (~ashwind@122.174.133.182) left irc: Quit: brb
+[06:49] <theAlchemist> is anyone else having high battery drainage with jm8? if so is there anything that can be done about it?
+[06:51] Zeimus (~chris@c-71-236-135-90.hsd1.wa.comcast.net) joined #project-voodoo.
+[07:02] <dan6a> theAlchemist, its just a theory but those battery mod indicators don't seem to assist with battery life at all
+[07:02] <dan6a> i have 4 batteries now as I am sick of it being an issue..
+[07:13] <rafyvitto> 4 batteries ><
+[07:13] <rafyvitto> isnt that a bit to much :P
+[07:14] <Mish-> Hmmm, someone on http://forum.cyanogenmod.com/topic/7106-knl-voodoo-oc-kernel-and-proper-io-lag-fix/ - saying that Voodoo breaks your ability to use Odin.
+[07:16] <rafyvitto> no its the dumb user who breaks the phone
+[07:16] <Mish-> heh
+[07:16] <rafyvitto> its been said many times "disbale lagfix" then flash to stock
+[07:16] <rafyvitto> if they dont know how to read or follow instructions its there problem
+[07:21] Zilch25 (~Zilch25@adsl-065-006-177-166.sip.bct.bellsouth.net) left irc: 
+[07:33] knowsnotmuch (~ashwind@122.174.133.182) joined #project-voodoo.
+[07:34] SenorClean (~chris@124-171-207-204.dyn.iinet.net.au) left irc: 
+[07:41] <dan6a> they were cheap batteries x2, + charger and USB cable for $10 au
+[07:41] <dan6a> the charger broke so they sent out another charger, 1 more batt and usb cable
+[07:42] <dan6a> I keep a battery fully charged in my wallet :)
+[07:42] <rafyvitto> oh ok, that explains it :P
+[07:42] <dan6a> on xda accessories has the link if you want , great great value
+[07:43] <rafyvitto> im ok, with my single battery :P
+[07:44] ragflan (~ragflan@220-244-184-58.static.tpgi.com.au) joined #project-voodoo.
+[07:44] <ragflan> this is the week isn't it? the week samsung promised froyo!
+[07:45] <rafyvitto> i hope its a global release...
+[07:45] <rafyvitto> no only for the european SGS :P
+[07:45] <rafyvitto> not*
+[07:46] SenorClean (~chris@124-171-207-204.dyn.iinet.net.au) joined #project-voodoo.
+[07:49] <ragflan> european first!
+[07:49] <ragflan> :D
+[07:49] <ragflan> actually korean galaxy s should already be running froyo
+[07:49] <ragflan> hmm
+[07:49] <rafyvitto> neva!!! :P
+[07:49] <ragflan> they said galaxy s should have froyo in august for korea
+[07:50] <rafyvitto> really? havent seen news/videos about it
+[07:50] <ragflan> first european man. come on! usa gets everything. Droid X, EVO, Epic 4G (Best variant of Galaxy S), Droid 2.
+[07:50] <ragflan> let european markets get froyo first!
+[07:51] <Chainfire> lol
+[07:51] <rafyvitto> Its only natural that the european version will get it first, as it was the very first SGS variant
+[07:51] <rafyvitto> =]
+[07:51] <ragflan> all we have is galaxy s till Desire HD comes out
+[07:51] <Chainfire> ragflan the USA may have some more devices... they also have the killer telco's that charge an arm and a leg, and are clearly insane.
+[07:51] <Chainfire> I wouldn't trade with the USA situation, no way
+[07:51] <ragflan> yeah i agree to that... at least in Australia we have decent telcos
+[07:52] <ragflan> best telcos are in singapore! to my experience...
+[07:52] <rafyvitto> telco's wahts upw ith them?
+[07:52] <rafyvitto> whats*
+[07:52] <ragflan> they always screw around with the phones in some way..
+[07:53] Action: Chainfire mutters something about full HSDPA and HSUPA, uncapped, no rules, not even fair use. I can tether, VoIP, and always get max speed possible with the tower... and it costs me... 10 euro/month :)
+[07:53] <rafyvitto> oh ok
+[07:53] <Chainfire> and on that bombshell, goodnight! (yikes its 8AM(
+[07:53] <oskariunit> im paying 15¬/month for unlimited data, 3000min of phone calls and ofc sgs :p
+[07:53] <rafyvitto> how much is 10euro in usd 50$?
+[07:54] <ragflan> Chainfire: what speeds on mobile do you get? I get around 1 megabyte per second. In australia, i pay 59 bucks for $650 worth of calls/messages and 2GB of data only.
+[07:54] <oskariunit> rafyvitto: ~13
+[07:54] <Chainfire> slightly less than 1 MB/s
+[07:54] <ragflan> there are no unlimited plans here ... not even for broadband
+[07:55] <ragflan> well sydney has, but not melbourne
+[07:55] <rafyvitto> wait thats just a data plan..it cant be voice and data, thats impossible if it is xD
+[07:55] <Chainfire> no its just data
+[07:55] <rafyvitto> oh
+[07:55] <Chainfire> I pay another E 10 for voice and text
+[07:55] <rafyvitto> still insanely cheap
+[07:55] <Chainfire> but I have like 10 gazillion minutes left on my account ;d
+[07:55] <rafyvitto> i pay 30$ for unlimited data
+[07:55] <Chainfire> rafyvitto including tethering ? :)
+[07:56] <rafyvitto> and like 40$ for the plan
+[07:56] <Chainfire> truely unlimited, or marketing unlimited ? :)
+[07:56] <ragflan> man i'd pay 13 dollars to get unlimited. here in australia, u pay 20 dollars for 2GB.
+[07:56] <rafyvitto> ye i can do w/e i want
+[07:56] <oskariunit> im getting 3-4mb/s
+[07:56] <Chainfire> oskariunit mbit?
+[07:56] <ragflan> yeah i reckon bits
+[07:56] <rafyvitto> max data i've used its been 9gb
+[07:56] <rafyvitto> in a month
+[07:56] <oskariunit> Chainfire: MB/s
+[07:56] <oskariunit> :p
+[07:56] <ragflan> WHOA
+[07:57] <ragflan> WHich country?
+[07:57] <oskariunit> finland
+[07:57] <dan6a> im on JPH and its rubbish, Id prefer to wait a month for a good froyo build
+[07:57] <Chainfire> how the hell do you get 4 MB/s out of a HSDPA handset?
+[07:57] <Chainfire> without 4G, that's not even possible with an SGS
+[07:57] <oskariunit> dunno
+[07:57] <Chainfire> not even in theory.
+[07:57] <ragflan> hahaha
+[07:57] <rafyvitto> yeh 4mb hard to belive xD
+[07:57] <ragflan> in theory i'm to get 7.2mbps
+[07:57] <rafyvitto> that ahs to be the bandwith im sure =]
+[07:57] <rafyvitto> has*
+[07:57] <ragflan> i get around 1 megabyte. close to...
+[07:58] <Chainfire> 7.2mbps ~ 1 MB/s
+[07:58] <ragflan> yeap
+[07:58] <Chainfire> ballpark
+[07:58] <ragflan> yeap yeap
+[07:58] <ragflan> my broadband is sad though
+[07:58] <ragflan> i get 16 megabytes a sec
+[07:58] <ragflan> NO
+[07:58] <rafyvitto> pff im lucky if i get 500kb/s download speed
+[07:58] <ragflan> WAIT
+[07:58] <oskariunit> ah I mixed units :p
+[07:58] <ragflan> 16 megabites
+[07:58] <rafyvitto> some times less
+[07:58] <ragflan> bits*
+[07:58] <Chainfire> 16 megabYtes here :P
+[07:58] <ragflan> i download around 2 megabytes a second. around
+[07:58] <oskariunit> im usually getting 3000-4000kb/s download
+[07:59] <ragflan> yeah that's what the rest of the world is getting
+[07:59] <ragflan> australia is a little behind
+[07:59] <ragflan> in singapore, i used to get around 12-13 megabytes a second
+[07:59] <oskariunit> so I thought its 3-4mb/s
+[07:59] <oskariunit> sorry for mixin :p
+[07:59] <ragflan> here 16 megabits a second. that really sucks
+[07:59] <Chainfire> ragflan economics
+[07:59] <ragflan> :(
+[07:59] <Chainfire> in my country it's easy to provide high speed fiber internet
+[07:59] <Chainfire> really high density of peoples
+[08:00] <ragflan> yeah like singapore
+[08:00] <Chainfire> all over
+[08:00] <Chainfire> so much cheaper
+[08:00] <ragflan> singapore you don't actually need unlimited 3G. There's island wide free wifi
+[08:00] <ragflan> granted you wont get it in beaches and stuff
+[08:00] <ragflan> but pretty much everywhere else
+[08:00] <ragflan> free wifi
+[08:00] <Chainfire> pff
+[08:00] <Chainfire> not even free wifi underwater
+[08:00] <Chainfire> im not going there.
+[08:00] <ragflan> hahaha
+[08:00] <rafyvitto> lol
+[08:01] O_oo (~Miranda@lon77-2-88-183-224-93.fbx.proxad.net) joined #project-voodoo.
+[08:01] <Chainfire> anyhoo as I said, goodnight
+[08:01] <Chainfire> *poof*
+[08:01] <ragflan> good night man.
+[08:01] <ragflan> me too outs.
+[08:01] <ragflan> see ya!
+[08:01] ragflan (~ragflan@220-244-184-58.static.tpgi.com.au) left irc: Quit: ChatZilla 0.9.86 [Firefox 3.6.10/20100914125854]
+[08:01] <oskariunit> same here in helsinki, free wifi works almost every corner
+[08:01] knowsnotmuch (~ashwind@122.174.133.182) left irc: Quit: brb
+[08:02] <rafyvitto> im out to cya guys
+[08:02] rafyvitto (~IceChat7@24.139.124.84) left irc: Quit: Clap on! , Clap off! Clap@#&$NO CARRIER
+[08:02] <oskariunit> but my sgs doesnt get good wifi signal
+[08:02] <oskariunit> so its pretty much useless in some situations
+[08:03] <O_oo> i see somewhere that improved in some latest rom
+[08:03] <oskariunit> well somewhat
+[08:04] <oskariunit> but im still getting better wifi from few year old nokia
+[08:04] <oskariunit> but as long as 3g works its np
+[08:04] <oskariunit> but might be problem while traveling and im doing that quite lot
+[08:05] knowsnotmuch (~ashwind@122.174.133.182) joined #project-voodoo.
+[08:07] <O_oo> i can't find the tread in xda...
+[08:17] Astralgeist] (~astral@92.90.16.33) joined #project-voodoo.
+[08:17] knowsnotmuch (~ashwind@122.174.133.182) left irc: Read error: Connection reset by peer
+[08:18] knowsnotmuch (~ashwind@122.174.133.182) joined #project-voodoo.
+[08:21] Astralgeist] (~astral@92.90.16.33) left irc: Ping timeout: 240 seconds
+[08:22] Zeimus (~chris@c-71-236-135-90.hsd1.wa.comcast.net) left irc: 
+[08:33] trigrou (~trigrou@bdv75-6-82-230-176-34.fbx.proxad.net) joined #project-voodoo.
+[08:46] knowsnotmuch (~ashwind@122.174.133.182) left irc: Ping timeout: 240 seconds
+[09:22] adante_ (~adante@59.167.212.65) joined #project-voodoo.
+[09:23] Ethanfel (~ethanfel@ARouen-553-1-170-63.w90-23.abo.wanadoo.fr) joined #project-voodoo.
+[09:23] adante (~adante@59.167.212.65) left irc: Ping timeout: 240 seconds
+[09:23] Nick change: adante_ -> adante
+[09:31] ellis2323 (ellis2323@2002:52ef:a4f1:0:223:12ff:fe54:7498) left #project-voodoo.
+[09:45] heazky (~heazky@193.191.136.212) joined #project-voodoo.
+[09:46] Phlogi (~quassel@146-125.62-81.cust.bluewin.ch) joined #project-voodoo.
+[09:57] ikm (~yaaic@95-25-247-51.broadband.corbina.ru) joined #project-voodoo.
+[09:59] ikm (~yaaic@95-25-247-51.broadband.corbina.ru) left irc: Remote host closed the connection
+[10:00] kalpik|web (148b4240@gateway/web/freenode/ip.20.139.66.64) joined #project-voodoo.
+[10:01] ikm (~yaaic@95-25-247-51.broadband.corbina.ru) joined #project-voodoo.
+[10:03] Phlogi (~quassel@146-125.62-81.cust.bluewin.ch) left irc: Ping timeout: 265 seconds
+[10:04] jrjunior (7a98a406@gateway/web/freenode/ip.122.152.164.6) left irc: Quit: Page closed
+[10:05] Phlogi (~quassel@146-125.62-81.cust.bluewin.ch) joined #project-voodoo.
+[10:15] Phlogi (~quassel@146-125.62-81.cust.bluewin.ch) left irc: Remote host closed the connection
+[10:21] designgears|nap (~designgea@67.213.7.50) joined #project-voodoo.
+[10:23] <designgears|nap> ah, no rafyvitto...
+[10:23] <designgears|nap> that guys cracks me up
+[10:24] <designgears|nap> Hey curio_, got your PM
+[10:30] Nick change: designgears|nap -> designgears|tv
+[10:30] knowsnotmuch (~ashwind@122.174.138.72) joined #project-voodoo.
+[10:36] knowsnotmuch (~ashwind@122.174.138.72) left irc: Quit: brb
+[10:37] <trigrou> Hi
+[10:38] <trigrou> curio_, do you know if there a list of wish feature somewhere and if we can donate for feature ?
+[10:38] <trigrou> curio_, I would like the stuff in the kernel to enable the tethering
+[10:42] <Phasmatis> trigrou, there's already apps for that
+[10:42] <Phasmatis> eg barnacle wifi tether
+[10:47] <trigrou> I have wireless thether for root users but it does work saying my kernel do not have the necessary feature
+[10:47] <trigrou> it does not work I meant
+[10:51] <trigrou> Phasmatis, ?
+[10:51] <Phasmatis> most of them need a modified kernel
+[10:52] <Phasmatis> i'm no pro with these things, but barnacle tether is the only third party one i know of that doesn't require it
+[10:52] <Phasmatis> having said that, i never tried the barnacle tether, because my i9000 came with wifi tethering as part of the settings (under mobile AP)
+[10:54] <trigrou> barnacle tether does not start on my phone, I guess it needs something special in the kernel too
+[10:55] <trigrou> Phasmatis, anyway did you update your kernel for that ?
+[10:55] <Phasmatis> maybe the galaxy s isn't supported by barnacle
+[10:56] <Phasmatis> and no, it came stock on the firmware i bought it with (jg4) and also on current firmware (jm6)
+[10:59] <trigrou> humm I have the jf3
+[10:59] <trigrou> well, I will wait froyo
+[11:01] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 272 seconds
+[11:02] ikm (~yaaic@95-25-247-51.broadband.corbina.ru) left irc: Ping timeout: 252 seconds
+[11:02] ikm (~yaaic@95-25-247-51.broadband.corbina.ru) joined #project-voodoo.
+[11:03] ikm (~yaaic@95-25-247-51.broadband.corbina.ru) left irc: Remote host closed the connection
+[11:04] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[11:10] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 276 seconds
+[11:12] Ethanfel (~ethanfel@ARouen-553-1-170-63.w90-23.abo.wanadoo.fr) left irc: Quit: Lost terminal
+[11:13] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[11:18] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 265 seconds
+[11:21] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[11:25] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 240 seconds
+[11:30] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[11:32] dan6a (~blog@203-158-35-213.dyn.iinet.net.au) left irc: Ping timeout: 272 seconds
+[11:39] rob151515 (~AndChat@41.45.233.220.static.exetel.com.au) joined #project-voodoo.
+[11:39] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 252 seconds
+[11:43] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[11:48] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 265 seconds
+[11:48] rob151515 (~AndChat@41.45.233.220.static.exetel.com.au) left irc: Quit: Bye
+[11:50] knowsnotmuch (~ashwind@59.90.2.193) joined #project-voodoo.
+[11:51] IStern (42c92de2@gateway/web/freenode/ip.66.201.45.226) left irc: Ping timeout: 252 seconds
+[11:51] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[11:52] knowsnotmuch (~ashwind@59.90.2.193) left irc: Read error: Connection reset by peer
+[11:52] ashwind (~ashwind@59.90.2.193) joined #project-voodoo.
+[11:53] ashwind (ashwind@59.90.2.193) left #project-voodoo.
+[11:58] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 240 seconds
+[12:02] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[12:04] knowsnotmuch (~ashwind@59.90.2.193) joined #project-voodoo.
+[12:05] ashwind (~ashwind@59.90.2.193) joined #project-voodoo.
+[12:05] knowsnotmuch (~ashwind@59.90.2.193) left irc: Read error: Connection reset by peer
+[12:06] Nick change: ashwind -> knowsnotmuch
+[12:07] ashwind (~ashwind@59.90.2.193) joined #project-voodoo.
+[12:07] knowsnotmuch (~ashwind@59.90.2.193) left irc: Read error: Connection reset by peer
+[12:07] Nick change: ashwind -> knowsnotmuch
+[12:10] ashwind (~ashwind@59.90.2.193) joined #project-voodoo.
+[12:11] ashwinds (~ashwind@115.184.6.88) joined #project-voodoo.
+[12:12] knowsnotmuch (~ashwind@59.90.2.193) left irc: Ping timeout: 276 seconds
+[12:12] Nick change: ashwinds -> knowsnotmuch
+[12:13] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 276 seconds
+[12:14] ashwind (~ashwind@59.90.2.193) left irc: Ping timeout: 252 seconds
+[12:16] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[12:20] <curio_> Hey designgears|tv ! welcome
+[12:25] <husq510> yo
+[12:25] Ethanfel (~ethanfel@ARouen-553-1-170-63.w90-23.abo.wanadoo.fr) joined #project-voodoo.
+[12:25] <Ethanfel> hi
+[12:26] <husq510> 0x0000a0e1
+[12:32] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 240 seconds
+[12:36] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[12:36] <Frd^> puuh
+[12:36] <Frd^> hello to all
+[12:38] Ethanfel (~ethanfel@ARouen-553-1-170-63.w90-23.abo.wanadoo.fr) left irc: Quit: Lost terminal
+[12:42] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 240 seconds
+[12:42] <curio_> hey Frd^ !
+[12:43] <curio_> very good news today !
+[12:43] <curio_> Koush found the ioctl that unlock bml
+[12:43] Ethanfel (~ethanfel@ARouen-553-1-170-63.w90-23.abo.wanadoo.fr) joined #project-voodoo.
+[12:43] <curio_> http://github.com/CyanogenMod/android_device_samsung_bmlunlock/blob/master/bmlunlock.c
+[12:43] <curio_> ioctl : 0x8A29
+[12:45] Ethanfel (~ethanfel@ARouen-553-1-170-63.w90-23.abo.wanadoo.fr) left irc: Client Quit
+[12:46] <Frd^> i dont have glue on that =D
+[12:46] <Frd^> what that exacly does?
+[12:46] <Frd^> what i's unlocks?
+[12:47] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[12:48] #project-voodoo: mode change '+o curio_' by ChanServ!ChanServ@services.
+[12:49] Topic changed on #project-voodoo by curio_!~curio@dsl.curio.be: Voodoo Project: Galaxy S improvements, developement and discussion : Beta4 and lagfix-only 3.0 online : FAQ, Doc, Download, Changelog : http://project-voodoo.org : PAYPAL curio@free.fr : Koush's bmlunlock, easy alternative to redbend_ua is just out
+[12:53] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 240 seconds
+[12:57] justcme (76d1e5a2@gateway/web/freenode/ip.118.209.229.162) joined #project-voodoo.
+[12:57] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[13:00] jreddekopp (~jreddekop@196.201.218.248) joined #project-voodoo.
+[13:01] ashwind (~ashwind@59.90.2.193) joined #project-voodoo.
+[13:02] jreddekopp (~jreddekop@196.201.218.248) left irc: Client Quit
+[13:02] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 265 seconds
+[13:02] <ashwind> i am no longer getting gmail notifications ... what has voodoo done? ;)
+[13:04] knowsnotmuch (~ashwind@115.184.6.88) left irc: Ping timeout: 252 seconds
+[13:04] Nick change: ashwind -> knowsnotmuch
+[13:04] jreddekopp (~jreddekop@196.201.218.254) joined #project-voodoo.
+[13:06] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[13:09] jreddekopp (~jreddekop@196.201.218.254) left irc: Remote host closed the connection
+[13:11] designgears|tv (~designgea@67.213.7.50) left irc: Ping timeout: 255 seconds
+[13:11] <curio_> lol knowsnotmuch
+[13:12] <knowsnotmuch> not to mention the apn
+[13:12] <knowsnotmuch> and the battery
+[13:12] <curio_> Frd^, bmlunlock just send a ioctl to the bml device, and then you can write to the bml device  like any ohter block device
+[13:12] <knowsnotmuch> and i suspect i get 1 bar less on my phone
+[13:12] <curio_> it removes the "read only" flag
+[13:12] <curio_> knowsnotmuch, that's because you love it so much now that you apply the death grip constantly ^^
+[13:13] <curio_> "ohh, my beloved phone "
+[13:13] <knowsnotmuch> yeah - i squeeze every bit of performance out of it
+[13:14] eitama (d4c72ff5@gateway/web/freenode/ip.212.199.47.245) joined #project-voodoo.
+[13:14] Astralgeist] (~astral@92.90.20.34) joined #project-voodoo.
+[13:14] <curio_> w00t, github is down !
+[13:14] <curio_> (from my ISP in france)
+[13:14] <curio_> is it down for you too ?
+[13:14] <curio_> http://github.com/project-voodoo
+[13:14] <knowsnotmuch> link
+[13:15] <knowsnotmuch> seems down
+[13:15] designgears|tv (~designgea@67.213.7.50) joined #project-voodoo.
+[13:15] <eitama> Hello, I need an advice, I got the galaxy S from thailand, it has JG4 from kies. Should I wait till samsung releases 2.2? (supposed to be in 2 days) or install voodoo on my 2.1 JG4? Will I have problems upgrading using kies after installing Voodoo? or i can just update?
+[13:15] <Kees-Jan> from NL also!
+[13:15] <curio_> http://git-scm.com/documentation is fine even if it's hosted by github
+[13:15] <curio_> it's not a connectivity pb
+[13:15] <knowsnotmuch> yeah - but the other url is down
+[13:15] ikm (~chatzilla@95-25-247-51.broadband.corbina.ru) joined #project-voodoo.
+[13:15] <curio_> hey eitama !
+[13:16] <eitama> Hello Curio!
+[13:16] <curio_> you can install Voodoo right now
+[13:16] <knowsnotmuch> eitama: at the moment, voodoo doesnt work on 2.2. So in a way its your only chance to try it on 2.1 :)
+[13:16] <eitama> I read the documentation on the project website including all the FAQ, the only think not mentioned there is how using voodoo will affect kies operation
+[13:16] <curio_> before upgrading to the much anticipated 2.2, you'll need to "disable lagfix". and everything should be allright
+[13:16] <eitama> thing*
+[13:17] <eitama> aha
+[13:17] <curio_> eitama, http://project-voodoo.org/documentation
+[13:17] <eitama> maybe it's a good idea to add that to the FAQ, many people want the voodoo but are afraid of the kies consequences
+[13:17] <eitama> curio_: I had read that 5 min ago :) i didn't see any information about kies there
+[13:17] <curio_> yes i think i may update the doc related to Kies
+[13:18] <curio_> since i wrote it i found that Kies won't work properly in Ext4 mode
+[13:18] <curio_> (damn kies! !)
+[13:18] DMoult (fb145@212.9.110.66) left irc: Ping timeout: 240 seconds
+[13:18] <eitama> and when you "Disable" voodoo by creating that file on sdcard, it actually converts back to rfs?
+[13:18] <knowsnotmuch> yes eitama - on reboot
+[13:18] Action: knowsnotmuch has never used kies 
+[13:19] <curio_> yep
+[13:19] <eitama> Aha, sounds great!  I have the galaxy s for 3 days now, it's great, just a bit scarred to brick it, I'm coming from nokia N900 which is virtually unbrickable. the only bricked phones iv'e heard off are Hardware USB problems preventing from flashing. So I am being very carefull with my galaxy s
+[13:20] <eitama> (in regards to n900)
+[13:20] <curio_> Galaxy S is extremly hard to brick too
+[13:20] <eitama> Still I have read many posts of people saying the phone won't go into recovery mode etc
+[13:20] <eitama> my phone does, i tested
+[13:20] <curio_> eitama, for safety, i recommend you save your /efs directory (as root). After that, you're good to go  ^^
+[13:20] <eitama> but after reading a lot, Still scares me.
+[13:21] <curio_> yeah sure, it's always scary the first time :D
+[13:21] <eitama> hmmm, mind throwing a word about what exactly is in that folder?
+[13:21] <curio_> it contains the "nvram" of the phone.
+[13:21] <knowsnotmuch> curio_: you need to mention in the docs that you need to reboot - "You can disable Voodoo lagfix by creating a file or folder named disable lagfix in a Voodoo folder on your internal SD card."
+[13:21] <curio_> IMEI informations and much more are in a file named nv_data.bin (associated with a .md5 file)
+[13:22] <eitama> both nv_data.bin and the md5 are in that folder?
+[13:22] <curio_> knowsnotmuch:     * Create a file or folder named "disable lagfix" in a a directory named "Voodoo" in your internal SD card.
+[13:22] <curio_>     * Reboot
+[13:22] <curio_> Done !
+[13:22] <curio_> sure it's said :D
+[13:22] <curio_> eitama, yes, accessible as root only
+[13:22] <eitama> hmmmm
+[13:23] <knowsnotmuch> curio_:  i was looking at faq - http://project-voodoo.org/faq
+[13:23] <eitama> then i need to install root, i was trying to hold back on the hacking till 2.2 comes.
+[13:23] <curio_> eitama, if something goes wrong with the update (very rare but already seen) you'll be glad to have your nv_data backup
+[13:23] jreddekopp (~jreddekop@196.201.218.254) joined #project-voodoo.
+[13:24] <curio_> thx knowsnotmuch : done
+[13:24] <curio_> eitama, currently hacking on 2.1 is very well known
+[13:24] <eitama> especially when I have no warrenty on the phone since I bought it over seas :) thanks for the tips!!!, curio, are you the developer / author of voodoo?
+[13:24] <curio_> yep
+[13:25] <Kees-Jan> eitama, I used this last weekend, the KIES method, after I deinstalled the voodoo thing and my IMEI was OK after ugrade to 2.2
+[13:25] <eitama> Thank you for your hard work, expect a donation soon :)
+[13:25] <curio_> thx ;)
+[13:25] <Kees-Jan> eitama: http://ip208-100-42-21.static.xda-developers.com/showthread.php?t=783596
+[13:26] <curio_> Kees-Jan, you forced kies ?
+[13:26] <eitama> Kees-Jan: you mean you used kies to upgrade to 2.1 something, and then upgraded to some leaked 2.2?
+[13:26] <eitama> Well jph is some beta/leaked one isn't it? (as far as I have read)
+[13:27] <Kees-Jan> curio: I edit hosts file then kies detects upgrade automagically without the ctrl-... key combi
+[13:27] <eitama> Oh curio_, I have read on maemo.org forums something about android 2.2 boosting HTC phones In general by around 600% in speed, but only a bit for the galaxy S. do you know if any of that is true?
+[13:27] <curio_> Kees-Jan, hhahah
+[13:28] <eitama> so who ownes the server you forced kies to use? not samsung?
+[13:29] jreddekopp (~jreddekop@196.201.218.254) left irc: Remote host closed the connection
+[13:29] <Kees-Jan> I now have SGS on Froyo without voodoo :( so I'm lurking here for developments for voodo on froyo
+[13:29] jreddekopp (~jreddekop@196.201.218.254) joined #project-voodoo.
+[13:29] jreddekopp (~jreddekop@196.201.218.254) left irc: Remote host closed the connection
+[13:29] <eitama> Kees-Jan: without voodoo but with the other lagfix yes?
+[13:30] <eitama> Could you guys point me to the best root guide / link / method that will root my phone and known to work good with voodoo?
+[13:31] <knowsnotmuch> eitama: if BackfireNL were here - this would have gone up in a flash :)) http://ip208-100-42-21.static.xda-developers.com/showthread.php?t=728754
+[13:31] <Kees-Jan> eitama: no, decided to wait for voodoo, I'm pleased to say the lagging isn't that bad, but could much better: voodoo
+[13:32] jreddekopp (~jreddekop@196.201.218.254) joined #project-voodoo.
+[13:32] jreddekopp (~jreddekop@196.201.218.254) left irc: Remote host closed the connection
+[13:32] <Kees-Jan> eitama, in http://ip208-100-42-21.static.xda-developers.com/showthread.php?t=783596 you can find almost anything you want
+[13:35] <knowsnotmuch> curio_: what are the to-dos for the next release? is there going to be a next release?
+[13:35] <Kees-Jan> eitama, curio: some guy asgard set up an 'private' upgrade server which can be reached as you edit the hosts file
+[13:35] <knowsnotmuch> lol and also played a hoax on the version number
+[13:36] <curio_> Kees-Jan, smart
+[13:36] <curio_> knowsnotmuch,
+[13:36] <curio_> - the beginning of live color adjustements
+[13:37] <curio_> - a script to revert back to previous kernel automatically
+[13:37] <curio_> (as root)
+[13:37] <knowsnotmuch> previous  = stock?
+[13:37] <curio_> previous ^^
+[13:37] <Kees-Jan> @curio_: it's not my idea, it's asgard's
+[13:38] <curio_> and i would like to include a new comatibility mode with CWM,  but CWM update is still not there
+[13:38] <knowsnotmuch> e.g. stock jm1 -> voodoo beta 2 -> voodoo beta4 -> roll back kernel and i get what?
+[13:38] <eitama> Sorry was on phone, reading now :)
+[13:38] <knowsnotmuch> voodoo beta 2?
+[13:38] <Kees-Jan> @curio_, just following the rabbit :) in http://ip208-100-42-21.static.xda-developers.com/showthread.php?t=783596
+[13:40] <curio_> that's lot of work for a beta leaked firmware !!
+[13:40] <Kees-Jan> curio_, it's xxjph
+[13:41] <eitama> curio_:
+[13:41] <knowsnotmuch> lol he also rigged it so kies reported that another newer version is available ... as a prank
+[13:41] <knowsnotmuch> jpi
+[13:41] raimondomartire (~androirc@94.166.138.99) joined #project-voodoo.
+[13:41] malcomx (malcomx@190.37.96.58.static.exetel.com.au) joined #project-voodoo.
+[13:41] <eitama> oops, curio_ and Kees-Jan thanks for the information and links. I was really afraid to mess with the galaxy s, after coming from the safty of the n900. i'm not afraid of having to work hard if something goes wrong, only afraid of a state where the is NOTHING else to do.
+[13:42] <knowsnotmuch> eitama: was in that state of mind too - but it looks pretty unbrickable
+[13:43] <Kees-Jan> eitama: as long as the 3-button combi work!
+[13:43] <eitama> i don't care losing all the data, but am afraid of losing market abilities and imei / wifi / gps functionality
+[13:43] <eitama> 3-button combo works, but as I understood it could stop working if you flash some parts?
+[13:44] <malcomx> really?
+[13:44] <Kees-Jan> eitama, as stated: all was fine on my SGS, but, as e precaution I backuped my /efs folder
+[13:44] <Hashcake> I surprised about all the issues some people are having with JPH, I've experienced none of them except the usual lag
+[13:45] <eitama> I saw a post saying that 3 combo mode was working for someone, and he flashed soemthing (don't remember what), and then recovery mode stopped working, only vol-down was giving him download-mode but was stuck
+[13:45] <eitama> obviously he didn't follow up on his post to let us know if he managed to solve the issue or not
+[13:46] <eitama> might be just the usual cry baby
+[13:46] <curio_> eitama, you need to apply this rule : Never tick "UPDATE BOOTLOADERS" manually
+[13:46] <curio_> that's a debug option, masqued by default
+[13:46] <Kees-Jan> JPH works fine, really no issues during upgrade and after, ususal lag, maybe little less then JM2 where I came from
+[13:46] <malcomx> i am just about to try my first flash using odin... is there a nice easy guide someone can link me?
+[13:46] <curio_> and of course, never tick "CLEAR EFS" too (in Odin)
+[13:46] <eitama> update bootloaders is also in odin?
+[13:47] <eitama> (which should not be used :) )
+[13:47] <Hashcake> Kees-Jan, beats me why people are having issues with JPH and identical hardware
+[13:47] <Kees-Jan> eitama, yes, it's an option in ODIN
+[13:47] <knowsnotmuch> malcomx: any post of richtofen will have a verbose step by step
+[13:47] <knowsnotmuch> malcomx: its what i used for my first flash - e.g. http://forum.xda-developers.com/showthread.php?t=780867
+[13:47] <Kees-Jan> hashcake, yeh, all working fine here!
+[13:48] <eitama> curio_: check your mail :)
+[13:48] <malcomx> thanks knowsnotmuch, will have a read
+[13:49] <eitama> Kees-Jan: does "HOWTO ROOT JPH FIRMWARE:" also work on my JG4?
+[13:49] <curio_> thank you very much eitama ;)
+[13:49] <Hashcake> I just wish Samsung would pay attention the the community and realise the bigger picture is beyond the average consumer, if they want us to buy their next gen of Android phones they need to show us 2.2 is an improvement and either sort out the lagfix themselves or realise the potential of employing devs like curio
+[13:49] kalpik|web (148b4240@gateway/web/freenode/ip.20.139.66.64) left irc: Quit: Page closed
+[13:49] <knowsnotmuch> Hashcake: absolutely why i think jph is such a disappointment
+[13:49] <eitama> you are most welcome
+[13:50] <malcomx> hmmm do i NEED to update CSC file?
+[13:50] <Kees-Jan> eitama, you mean the youtube vid?
+[13:50] <eitama> no, from the link you sent me
+[13:50] <eitama> there is a paragraph
+[13:50] <Hashcake> voodoo on 2.1 makes a massive difference, no other lagfix does anything like it
+[13:50] <eitama> from here : http://ip208-100-42-21.static.xda-developers.com/showthread.php?t=783596
+[13:50] <knowsnotmuch> malcomx: i always do... you can always find your csc...
+[13:51] <Hashcake> I'm no just saying that to get people to think I am sucking up to curio, but oclf is nowhere near as fast
+[13:51] raimondomartire (~androirc@94.166.138.99) left irc: Remote host closed the connection
+[13:51] <eitama> curio_: should i backup /efs also if I just want voodoo? i'll wait with root if it's only important for 2.2
+[13:52] <knowsnotmuch> i didnt use oclf for long - but when i did - it was ok. i didnt notice the lag coming back - but i did skip over to voodoo pretty quickly
+[13:52] <Kees-Jan> eitama, I used it for JPH, JG1 was easyer
+[13:52] <curio_> eitama, i recommand backing up /efs before Froyo, but.. sooner is better (Voodoo don't touch efs data at all)
+[13:52] <eitama> ok i'll search around xda
+[13:52] <knowsnotmuch> i still use oclf for changing the minfree, wifi timeout :D
+[13:52] <eitama> lets say my efs gets messed up, how Do i get to put it back in after backing it up?
+[13:53] <eitama> normal file manager with root permissions?
+[13:57] <malcomx> does anyone know if a titanium backup taken from a phone with OCLF applied will restore to cleanly flashed phone?
+[13:57] <knowsnotmuch> malcomx: its still stored in the backup directory - so long as its safe, it will restore
+[13:58] <curio_> encoding test : Çü¿9V“ ‹.U
+[13:58] <curio_>   blah 
+[13:58] <curio_> (for the logs)
+[13:58] <Frd^> 
+[13:58] <Frd^> =)
+[13:58] <Kees-Jan> @curio_: learning new language?
+[13:58] <Frd^> 00101010010010010010100101010
+[13:58] <Frd^> _00000_
