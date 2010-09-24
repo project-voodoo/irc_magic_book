@@ -6,12 +6,12 @@
 #  
 ######################################################################
 use Date::Calc qw(:all);
-my $outputfile = "index.html";
+my $outputfile = "output/index.html";
 
 sub get_files_list {
 	my %files;
 	my $file_date;
-	my @files = <./html/*>;
+	my @files = <./output/project*log*.html>;
 		foreach $file (@files) {
 			my $filedate = &get_file_date($file);
 			my $filesize = -s $file;
@@ -30,7 +30,7 @@ sub get_file_date {
 
 sub write_skells {
 	print("SKELLS to :$outputfile ");
-	open (FILE ,"index-skels-index.html");
+	open (FILE ,"templates/index-skels-index.html");
 	my @SKELL = <FILE>;
   	close (FILE);
  	open (OUTPUT,">$outputfile");
@@ -116,8 +116,12 @@ sub make_calendars {
 		}
 		if ( $fsize_pr > 100 ) { $fsize_pr = 100;} 
 		print("MAKE CALENDERS: $f : $files{$f} ".$fsize_pr ."%\n");
+		
+		# FIXME find a cleaner way 
+		my ($foo, $prefix , $href) = split(/\//,$f);
+		
 		if ( $month eq $month_l ) {
-			$cal =~ s/#LINK$day#/\"$f\"/;
+			$cal =~ s/#LINK$day#/\"$href\"/;
 			$cal =~ s/#PERCENT$day#/$fsize_pr%/;
 			$calendars{"$year.$month"} = $cal;
 		} else {
@@ -125,7 +129,7 @@ sub make_calendars {
 			$month_l = $month;
 			$cal = &skell_calendar($year,$month,$day,$c_index);
 			$c_index++;
-			$cal =~ s/#LINK$day#/\"$f\"/;
+			$cal =~ s/#LINK$day#/\"$href\"/;
 			$cal =~ s/#PERCENT$day#/$fsize_pr%/;
 		}
 	}	

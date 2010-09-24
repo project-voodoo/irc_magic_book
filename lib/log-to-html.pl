@@ -23,7 +23,7 @@ sub get_file_date {
 sub write_skells {
   my ($file) = @_;
   print("SKELLS to :$file\n");
-  open (FILE ,"book-skels.html");
+  open (FILE ,"templates/irc-log.html");
   my @SKELL = <FILE>;
   close (FILE);
 
