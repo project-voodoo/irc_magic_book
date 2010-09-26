@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-#  # project-voodoo logparser v0.2
+#  # project-voodoo logparser v0.21
 #  author : putkte/Frd^freenode @2010
 #  why : for #project-voodoo channel log parser
 #  code is not pretty but does job nicely =)
@@ -7,6 +7,7 @@
 ######################################################################
 use Date::Calc qw(:all);
 my $outputfile = "output/index.html";
+my $template = "templates/index.html";
 
 sub get_files_list {
 	my %files;
@@ -30,7 +31,7 @@ sub get_file_date {
 
 sub write_skells {
 	print("SKELLS to :$outputfile ");
-	open (FILE ,"templates/index-skels-index.html");
+	open (FILE ,$template);
 	my @SKELL = <FILE>;
   	close (FILE);
  	open (OUTPUT,">$outputfile");
@@ -56,7 +57,7 @@ sub skell_calendar {
     my %c_index_pos_top = (1,40,2,40,3,40,4,320,5,320,6,320,7,640,8,640,9,640,10,960,11,960,12,960);
 	$left = $c_index_pos_left{$c_index};
 	$top = $c_index_pos_top{$c_index};
-	print ("LEFT: $left\n");
+	#print ("LEFT: $left\n");
 	if ( not defined $year || not defined $month || not defined $day) { die }
 	my $calender;
 	$dow = Day_of_Week($year,$month,"01");
@@ -72,7 +73,7 @@ sub skell_calendar {
 	if ( $DW_string eq "Sunday") { $d=7; }
 	$calender = $calender = "<div class=\"cal$c_index\" style=\"position: absolute; top:".$top."px; left: ".$left."px;\">\n<h3>$M_str $year</h3>\n";
 	my $days = Days_in_Month($year,$month);
-	$calender = $calender ."<table style=\"border:0\">\n<tr>";
+	$calender = $calender ."<table style=\"border:0\">\n";
 	$calender = $calender ."<tr><td class=\"calday\">M</td><td class=\"calday\">T</td><td class=\"calday\">W</td><td class=\"calday\">T</td><td class=\"calday\">F</td><td class=\"calday\">S</td><td class=\"calday\">S</td></tr>";
 	for ($i=1;$i<$d;$i++) {
 		$calender = $calender ."<td class=\"calender\"></td>";
@@ -86,8 +87,8 @@ sub skell_calendar {
 			$i_pr = $i; 
 		}	
 		if ( $d < 7 ){
-		$calender = $calender ."<td class=\"calender\"><div style=\"position: absolute; z-index: 3;\"><a href=#LINK$i_pr#>$i_pr</a></div><div style=\"overflow:hidden;height:#PERCENT$i_pr#\"><img src=\"meter.png\" /></div></td>";
-		$d++;
+			$calender = $calender ."<td class=\"calender\"><div style=\"position: absolute; z-index: 3;\"><a href=#LINK$i_pr#>$i_pr</a></div><div style=\"overflow:hidden;height:#PERCENT$i_pr#\"><img src=\"meter.png\" /></div></td>";
+			$d++;
 		}	
 		else {
 			$calender = $calender ."<td class=\"calender\"><div style=\"position: absolute; z-index: 3;\"><a href=#LINK$i_pr#>$i_pr</a></div><div style=\"overflow:hidden;height:#PERCENT$i_pr#\"><img src=\"meter.png\" /></div></td></tr>\n";
@@ -105,7 +106,7 @@ sub make_calendars {
 	my $c_index = 1;
 	my %calendars;
 	foreach my $f (sort (keys %files)) {
-		#print("FILE : $f : date : $files{$f}\n");
+		print("FILE : $f : date : $files{$f} fsize: $files{$f}{size}\ \n");
 		my ($year,$month,$day) = split(/-/,$files{$f});
 		my $fsize = $files{$f}{'size'}/1024; 
   		if ( $fsize =~ m/(0\.[0-9]{1,2})/ ) {
@@ -150,7 +151,7 @@ sub write_calenders {
 					$i_pr = $i; 
 				}	
 			$cal =~ s/#LINK$i_pr#/""/g;
-			$cal =~ s/#PERCENT$i_pr#/0%"/g;
+			$cal =~ s/#PERCENT$i_pr#/0%/g;
 			}
 			print OUTPUT $cal;
 	}

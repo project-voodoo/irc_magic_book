@@ -13,14 +13,16 @@ td.calday {
   border : 0px none;
   font: bold 12px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
   text-align:center;
+  height:32px;
+  width: 24px;
 }
 td.calender {
   border : 0.1px solid;
+  height:32px;
+  width: 24px;
   font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
   border-width:thin;
   text-align:center;
-  height:32px;
-  width: 24px;
 }
 tr.header {
    text-align:center;
