@@ -56,12 +56,14 @@ my $file = $ARGV[0];
 open (OUTPUT,">>$file.html");
 my $i = 0;
 while ( $info[$i] ){
-      if ( $info[$i] =~ m/(\[.*\]).<(.*)>(.*)/ ) {
+      if ( $info[$i] =~ m/(^\[\d{1,2}:\d{1,2}\]).<([a-zA-Z_\.\-\+]{1,15})>(.*)/ ) {
 	  my $time = $1;
 	  my $nick = $2;
 	  my $to_message;
-		if ( rindex($nick,'>') ne "-1" ) {
-			#print("line: $info[$i]\n");
+	  my $message = $3;
+	  #print("line: $info[$i]\n");
+	  #print("time: $time # nick $nick # $message\n");
+      if ( rindex($nick,'>') ne "-1" ) {
 			$nick_l = length($nick);
 			#print ("nick :$nick :$nick_l i:".rindex($nick,'>',13)."\n");
 			$to_message = substr($nick,rindex($nick,'>',13)+1,$nick_l);
@@ -69,7 +71,6 @@ while ( $info[$i] ){
 			#print ("nick :$nick :".rindex($nick,'>',13)."\n");
 			#print ("tomes :$to_message\n");
 		}
-	  my $message = $3;
 	  $message = $to_message.$message;
       $to_message = "";
 	  if ( not defined  $nicknames{$nick} ) { 
