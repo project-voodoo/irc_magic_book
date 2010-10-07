@@ -14,6 +14,7 @@ sub get_files_list {
 	my $file_date;
 	my @files = <./output/project*log*.html>;
 		foreach $file (@files) {
+			print ("file : $file\n");
 			my $filedate = &get_file_date($file);
 			my $filesize = -s $file;
 		   	$files{$file} =  $filedate;
