@@ -92,20 +92,42 @@ while ( $info[$i] ){
 			#print ("tomes :$to_message\n");
 		}
 		#	hidin anon nicks.
-	  	if ( $nick =~ m/\|anon$/ ) {
-					#print("nick matchs anonline\n");
-					if ( not defined $nicknameanon{$nick} ) {
-						$nicknameanon{$nick} = "user".$nicksanon;
-						$nicksanon++;
-						$nick = $nicknameanon{$nick};
-					} else {
-						$nick = $nicknameanon{$nick};
-					}
+	  	if ( $nick =~ m/\|anon$/ ) {                
+              if ( not defined $nicknameanon{$nick} ) {
+                  $nicknameanon{$nick} = reverse(substr($nick, index($nick, '|anon')));
+                  $nicksanon++;
+                  $nick = $nicknameanon{$nick};
+              } else {
+                  $nick = $nicknameanon{$nick};
+              }
+          } elsif ( $nick =~ m/_anon$/ ) {
+              if ( not defined $nicknameanon{$nick} ) {
+                  $nicknameanon{$nick} = reverse(substr($nick, index($nick, '_anon')));
+                  $nicksanon++;
+                  $nick = $nicknameanon{$nick};
+              } else {
+                  $nick = $nicknameanon{$nick};
+              }
+          } elsif ( $nick =~ m/\|nolog$/ ) {
+              if ( not defined $nicknameanon{$nick} ) {
+                  $nicknameanon{$nick} = reverse(substr($nick, index($nick, '|nolog')));
+                  $nicksanon++;
+                  $nick = $nicknameanon{$nick};
+              } else {
+                  $nick = $nicknameanon{$nick};
+              }
+          } elsif ( $nick =~ m/_nolog$/ ) {
+              if ( not defined $nicknameanon{$nick} ) {
+                  $nicknameanon{$nick} = reverse(substr($nick, index($nick, '_nolog')));
+                  $nicksanon++;
+                  $nick = $nicknameanon{$nick};
+              } else {
+                  $nick = $nicknameanon{$nick};
+              }
 		}
 		$message = $to_message.$message;
         $to_message = "";
 		foreach my $key (keys %nicknameanon) {
-				#print("keys: $key\n");
 				$message =~ s/$key/$nicknameanon{$key}/;
 		}
 	  # adds nick to hastable and givs then number waht indicates cologs on webpage
