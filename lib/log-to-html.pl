@@ -112,7 +112,7 @@ while ( $info[$i] ){
               }
           } elsif ( $nick =~ m/\|rev$/ ) {
               if ( not defined $nicknameanon{$nick} ) {
-                  $nicknameanon{$nick} = reverse(substr($nick,0,index($nick, '|nolog')))."|nolog";
+                  $nicknameanon{$nick} = reverse(substr($nick,0,index($nick, '|rev')))."|rev";
                   $nicksanon++;
                   $nick = $nicknameanon{$nick};
               } else {
@@ -120,7 +120,7 @@ while ( $info[$i] ){
               }
           } elsif ( $nick =~ m/_rev$/ ) {
               if ( not defined $nicknameanon{$nick} ) {
-                  $nicknameanon{$nick} = reverse(substr($nick,0,index($nick, '_nolog')))."_nolog";
+                  $nicknameanon{$nick} = reverse(substr($nick,0,index($nick, '_rev')))."_rev";
                   $nicksanon++;
                   $nick = $nicknameanon{$nick};
               } else {
