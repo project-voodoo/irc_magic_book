@@ -130,6 +130,7 @@ while ( $info[$i] ){
 		$message = $to_message.$message;
         $to_message = "";
 		foreach my $key (keys %nicknameanon) {
+				$key =~ s/|/\|/;
 				$message =~ s/$key/$nicknameanon{$key}/;
 		}
 	  # adds nick to hastable and givs then number waht indicates cologs on webpage
