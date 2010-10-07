@@ -94,7 +94,7 @@ while ( $info[$i] ){
 		#	hidin anon nicks.
 	  	if ( $nick =~ m/\|anon$/ ) {                
               if ( not defined $nicknameanon{$nick} ) {
-                  $nicknameanon{$nick} = reverse(substr($nick, index($nick, '|anon')));
+				  $nicknameanon{$nick} = reverse(substr($nick,0, index($nick, '|anon')))."|anon";
                   $nicksanon++;
                   $nick = $nicknameanon{$nick};
               } else {
@@ -102,7 +102,7 @@ while ( $info[$i] ){
               }
           } elsif ( $nick =~ m/_anon$/ ) {
               if ( not defined $nicknameanon{$nick} ) {
-                  $nicknameanon{$nick} = reverse(substr($nick, index($nick, '_anon')));
+                  $nicknameanon{$nick} = reverse(substr($nick,0,index($nick, '_anon')))."_anon";
                   $nicksanon++;
                   $nick = $nicknameanon{$nick};
               } else {
@@ -110,7 +110,7 @@ while ( $info[$i] ){
               }
           } elsif ( $nick =~ m/\|nolog$/ ) {
               if ( not defined $nicknameanon{$nick} ) {
-                  $nicknameanon{$nick} = reverse(substr($nick, index($nick, '|nolog')));
+                  $nicknameanon{$nick} = reverse(substr($nick,0,index($nick, '|nolog')))."|nolog";
                   $nicksanon++;
                   $nick = $nicknameanon{$nick};
               } else {
@@ -118,7 +118,7 @@ while ( $info[$i] ){
               }
           } elsif ( $nick =~ m/_nolog$/ ) {
               if ( not defined $nicknameanon{$nick} ) {
-                  $nicknameanon{$nick} = reverse(substr($nick, index($nick, '_nolog')));
+                  $nicknameanon{$nick} = reverse(substr($nick,0,index($nick, '_nolog')))."_nolog";
                   $nicksanon++;
                   $nick = $nicknameanon{$nick};
               } else {
