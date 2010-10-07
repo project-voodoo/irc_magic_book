@@ -12,6 +12,9 @@ my %nicknames;
 my %nicknamesid;
 my $nicks = 1;
 
+/*
+ 	Get filename from file name small regex
+*/
 sub get_file_date {
    my ($filename) = @_;
    if ( $filename =~ m/([\d]{4}-[\d]{1,2}-[\d]{1,2})/ ) {
@@ -19,6 +22,9 @@ sub get_file_date {
  	print("FILEDATE : $file_date\n");
 	}
 }
+/*
+ 	reads irc-log.html and writes it to index.html
+*/
 
 sub write_skells {
   my ($file) = @_;
@@ -41,6 +47,9 @@ while ( $SKELL[$i] ){
   print("SKELLS : DONE!\n");
 close(OUTPUT);
 }
+/*
+ 	writes index.html file skell ending.
+*/
 sub write_skells_end {
   my ($file) = @_;
 my $file_end = "<table>\n</body>\n</html>\n";
@@ -48,7 +57,15 @@ open (OUTPUT,">>$file.html");
    print OUTPUT "$file_end";
   close(OUTPUT);
 }
+/*
+ 	converts logs to html file.
+*/
 sub convert_logs {
+/*
+	opens files and reads it to array info
+	then runs through array and finds lines what matches on regex line.
+	takes time nick and message from those and adds to td line.
+*/
 open (FILE ,$ARGV[0]);
 my @info = <FILE>;
 close (FILE);
@@ -63,6 +80,7 @@ while ( $info[$i] ){
 	  my $message = $3;
 	  #print("line: $info[$i]\n");
 	  #print("time: $time # nick $nick # $message\n");
+	  # small fix on nick lines. so if finds char > on nick then regexp did not work correct that small thin fixes it.
       if ( rindex($nick,'>') ne "-1" ) {
 			$nick_l = length($nick);
 			#print ("nick :$nick :$nick_l i:".rindex($nick,'>',13)."\n");
@@ -73,7 +91,8 @@ while ( $info[$i] ){
 		}
 	  $message = $to_message.$message;
       $to_message = "";
-	  if ( not defined  $nicknames{$nick} ) { 
+	  # adds nick to hastable and givs then number waht indicates cologs on webpage
+		if ( not defined  $nicknames{$nick} ) { 
 			$nicknames{$nick} = $nicks ;
 			$nicks++; 
 			if ( $nicks > 15) { $nicks = 1; }
@@ -85,6 +104,7 @@ while ( $info[$i] ){
   	print("CONVERTED $i lines\n");
 	close(OUTPUT);
 }
+#clas sub fucktions to make logs =)
 &get_file_date($ARGV[0]);
 &write_skells($ARGV[0]);
 &convert_logs($ARGV[0]);

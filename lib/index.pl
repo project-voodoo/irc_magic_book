@@ -9,6 +9,9 @@ use Date::Calc qw(:all);
 my $outputfile = "output/index.html";
 my $template = "templates/index.html";
 
+/*
+  read files from log folder and makes hashtable.
+*/
 sub get_files_list {
 	my %files;
 	my $file_date;
@@ -23,6 +26,9 @@ sub get_files_list {
 	 } 
   return %files;
 }
+/*
+ 	get date from file name
+*/
 sub get_file_date {
 	my ($filename) = @_;
 	if ( $filename =~ m/([\d]{4}-[\d]{1,2}-[\d]{1,2})/ ) {
@@ -30,7 +36,9 @@ sub get_file_date {
 	}
 	return $file_date;
 }
-
+/*
+	writes skell to output file.
+*/
 sub write_skells {
 	print("SKELLS to :$outputfile ");
 	open (FILE ,$template);
@@ -45,12 +53,18 @@ sub write_skells {
 	print("[DONE]\n");
 	close(OUTPUT);
 }
+/*
+	writes skell ending to output file.
+*/
 sub write_skells_end {
 	my $file_end = "<div class=\"footer\" style=\"position: absolute; top: 99%; left: 240px;\"><div>©Frd^\@freenode (IRC log parser author) 2010</div></div></body>\n</html>\n";
 	open (OUTPUT,">>$outputfile");
 	print OUTPUT "$file_end";
 	 close(OUTPUT);
 }
+/*
+	makes calender skells.
+*/
 sub skell_calendar {
 	my ($year,$month,$day,$c_index) = @_;
     my $top=40;
@@ -77,6 +91,7 @@ sub skell_calendar {
 	my $days = Days_in_Month($year,$month);
 	$calender = $calender ."<table style=\"border:0\">\n";
 	$calender = $calender ."<tr><td class=\"calday\">M</td><td class=\"calday\">T</td><td class=\"calday\">W</td><td class=\"calday\">T</td><td class=\"calday\">F</td><td class=\"calday\">S</td><td class=\"calday\">S</td></tr>";
+	## makes empty days before so first day is in correct position.
 	for ($i=1;$i<$d;$i++) {
 		$calender = $calender ."<td class=\"calender\"></td>";
 	}
@@ -87,7 +102,8 @@ sub skell_calendar {
 		} 
 		else { 
 			$i_pr = $i; 
-		}	
+		}
+		# print daus in calemdar.	
 		if ( $d < 7 ){
 			$calender = $calender ."<td class=\"calender\"><div style=\"position: absolute; z-index: 3;\"><a href=#LINK$i_pr#>$i_pr</a></div><div style=\"overflow:hidden;height:#PERCENT$i_pr#\"><img src=\"meter.png\" /></div></td>";
 			$d++;
@@ -101,7 +117,9 @@ sub skell_calendar {
 	$calender = $calender ."</tr>\n</table>\n";
 	$calender = $calender ."</div>\n";
 }
-
+/*
+	adds log links to calenders.
+*/
 sub make_calendars {
 	my (%files) = @_;
 	my $month_l = 0;
@@ -136,6 +154,10 @@ sub make_calendars {
 	print("MAKE CALENDERS: [DONE]\n");
 	return %calendars;
 }
+/*
+	removes rest skell link and procent positions.
+	writes all calendars to outputfile.
+*/
 sub write_calenders {
 	print("WRITING CALENDERS to $outputfile ");
 	my (%calenders) = @_;
@@ -157,6 +179,9 @@ sub write_calenders {
   	close (OUTPUT);
 	print("[DONE]\n");
 }
+/*
+	the main function
+*/
 sub main {
 	&write_skells();
 	my %files = &get_files_list();
