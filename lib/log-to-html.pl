@@ -91,6 +91,8 @@ while ( $info[$i] ){
 			#print ("nick :$nick :".rindex($nick,'>',13)."\n");
 			#print ("tomes :$to_message\n");
 		}
+	if ( $nick =~ m/\|nolog$/ || $nick =~ m/_nolog$/ ) {
+		} else {
 		#	hidin anon nicks.
 	  	if ( $nick =~ m/\|anon$/ ) {                
               if ( not defined $nicknameanon{$nick} ) {
@@ -108,7 +110,7 @@ while ( $info[$i] ){
               } else {
                   $nick = $nicknameanon{$nick};
               }
-          } elsif ( $nick =~ m/\|nolog$/ ) {
+          } elsif ( $nick =~ m/\|rev$/ ) {
               if ( not defined $nicknameanon{$nick} ) {
                   $nicknameanon{$nick} = reverse(substr($nick,0,index($nick, '|nolog')))."|nolog";
                   $nicksanon++;
@@ -116,7 +118,7 @@ while ( $info[$i] ){
               } else {
                   $nick = $nicknameanon{$nick};
               }
-          } elsif ( $nick =~ m/_nolog$/ ) {
+          } elsif ( $nick =~ m/_rev$/ ) {
               if ( not defined $nicknameanon{$nick} ) {
                   $nicknameanon{$nick} = reverse(substr($nick,0,index($nick, '_nolog')))."_nolog";
                   $nicksanon++;
@@ -124,7 +126,7 @@ while ( $info[$i] ){
               } else {
                   $nick = $nicknameanon{$nick};
               }
-		}
+          } 
 		$message = $to_message.$message;
         $to_message = "";
 		foreach my $key (keys %nicknameanon) {
@@ -137,6 +139,7 @@ while ( $info[$i] ){
 			if ( $nicks > 15) { $nicks = 1; }
 			}
 			print OUTPUT "<tr id='$nick' ><td class='time' id='$nick'>$time</td><td id='$nick' class='nick$nicknames{$nick}'><a onclick=\"javascript:clicknick(\'$nick\');\">$nick</a></td><td id='$nick' class='message'>$message</td></tr>\n";
+		}
 	}
   $i++;
 }
