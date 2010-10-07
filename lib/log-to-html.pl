@@ -10,11 +10,13 @@ my $file_date;
 
 my %nicknames;
 my %nicknamesid;
+my %nicknameanon;
+my $nicksanon = 1;
 my $nicks = 1;
 
-/*
- 	Get filename from file name small regex
-*/
+##
+## 	Get filename from file name small regex
+##
 sub get_file_date {
    my ($filename) = @_;
    if ( $filename =~ m/([\d]{4}-[\d]{1,2}-[\d]{1,2})/ ) {
@@ -22,9 +24,9 @@ sub get_file_date {
  	print("FILEDATE : $file_date\n");
 	}
 }
-/*
- 	reads irc-log.html and writes it to index.html
-*/
+##
+## reads irc-log.html and writes it to index.html
+##
 
 sub write_skells {
   my ($file) = @_;
@@ -47,9 +49,9 @@ while ( $SKELL[$i] ){
   print("SKELLS : DONE!\n");
 close(OUTPUT);
 }
-/*
- 	writes index.html file skell ending.
-*/
+##
+## writes index.html file skell ending.
+##
 sub write_skells_end {
   my ($file) = @_;
 my $file_end = "<table>\n</body>\n</html>\n";
@@ -57,15 +59,15 @@ open (OUTPUT,">>$file.html");
    print OUTPUT "$file_end";
   close(OUTPUT);
 }
-/*
- 	converts logs to html file.
-*/
+##
+## 	converts logs to html file.
+##
 sub convert_logs {
-/*
-	opens files and reads it to array info
-	then runs through array and finds lines what matches on regex line.
-	takes time nick and message from those and adds to td line.
-*/
+##
+##	opens files and reads it to array info
+##	then runs through array and finds lines what matches on regex line.
+##	takes time nick and message from those and adds to td line.
+##
 open (FILE ,$ARGV[0]);
 my @info = <FILE>;
 close (FILE);
@@ -73,7 +75,7 @@ my $file = $ARGV[0];
 open (OUTPUT,">>$file.html");
 my $i = 0;
 while ( $info[$i] ){
-      if ( $info[$i] =~ m/(^\[\d{1,2}:\d{1,2}\]).<([a-zA-Z_\.\-\+]{1,15})>(.*)/ ) {
+      if ( $info[$i] =~ m/(^\[\d{1,2}:\d{1,2}\]).<([a-zA-Z_\.\-\+\|]{1,15})>(.*)/ ) {
 	  my $time = $1;
 	  my $nick = $2;
 	  my $to_message;
@@ -89,7 +91,18 @@ while ( $info[$i] ){
 			#print ("nick :$nick :".rindex($nick,'>',13)."\n");
 			#print ("tomes :$to_message\n");
 		}
-	  $message = $to_message.$message;
+		#	hidin anon nicks.
+	  	if ( $nick =~ m/\|anon$/ ) {
+					#print("nick matchs anonline\n");
+					if ( not defined $nicknameanon{$nick} ) {
+						$nicknameanon{$nick} = "user".$nicksanon;
+						$nicksanon++;
+						$nick = $nicknameanon{$nick};
+					} else {
+						$nick = $nicknameanon{$nick};
+					}
+		}
+		$message = $to_message.$message;
       $to_message = "";
 	  # adds nick to hastable and givs then number waht indicates cologs on webpage
 		if ( not defined  $nicknames{$nick} ) { 
