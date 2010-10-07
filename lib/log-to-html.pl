@@ -94,7 +94,7 @@ while ( $info[$i] ){
 		#	hidin anon nicks.
 	  	if ( $nick =~ m/\|anon$/ ) {                
               if ( not defined $nicknameanon{$nick} ) {
-				  $nicknameanon{$nick} = reverse(substr($nick,0, index($nick, '|anon')))."|anon";
+				  $nicknameanon{$nick} = "user". $nicksanon;
                   $nicksanon++;
                   $nick = $nicknameanon{$nick};
               } else {
@@ -102,7 +102,7 @@ while ( $info[$i] ){
               }
           } elsif ( $nick =~ m/_anon$/ ) {
               if ( not defined $nicknameanon{$nick} ) {
-                  $nicknameanon{$nick} = reverse(substr($nick,0,index($nick, '_anon')))."_anon";
+				  $nicknameanon{$nick} = "user". $nicksanon;
                   $nicksanon++;
                   $nick = $nicknameanon{$nick};
               } else {
