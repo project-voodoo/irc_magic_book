@@ -14,11 +14,12 @@ sub get_files_list {
 	my $file_date;
 	my @files = <./output/project*log*.html>;
 		foreach $file (@files) {
-			print ("file : $file\n");
-			my $filedate = &get_file_date($file);
+			$file =~ m/\/.*\/(.*\.html)/;
+			$ffile = $1;
+			my $filedate = &get_file_date($ffile);
 			my $filesize = -s $file;
-		   	$files{$file} =  $filedate;
-		   	$files{$file}{'size'} =  $filesize;
+		   	$files{$ffile} =  $filedate;
+		   	$files{$ffile}{'size'} =  $filesize;
 	 } 
   return %files;
 }
@@ -119,11 +120,8 @@ sub make_calendars {
 		if ( $fsize_pr > 100 ) { $fsize_pr = 100;} 
 		print("MAKE CALENDERS: $f : $files{$f} ".$fsize_pr ."%\n");
 		
-		# FIXME find a cleaner way 
-		my ($foo, $prefix , $href) = split(/\//,$f);
-		
 		if ( $month eq $month_l ) {
-			$cal =~ s/#LINK$day#/\"$href\"/;
+			$cal =~ s/#LINK$day#/\"$f\"/;
 			$cal =~ s/#PERCENT$day#/$fsize_pr%/;
 			$calendars{"$year.$month"} = $cal;
 		} else {
