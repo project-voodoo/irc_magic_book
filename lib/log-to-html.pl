@@ -74,7 +74,7 @@ my $file = $ARGV[0];
 open (OUTPUT,">>$file.html");
 my $i = 0;
 while ( $info[$i] ){
-      if ( $info[$i] =~ m/(^\[\d{1,2}:\d{1,2}\]).<([a-zA-Z_\.\-\+\|\^]{1,15})>(.*)/ ) {
+      if ( $info[$i] =~ m/(^\[\d{1,2}:\d{1,2}\]).<([a-zA-Z_\.\-\_\+\|\^\]\[]{1,15})>(.*)/ ) {
 	  my $time = $1;
 	  my $nick = $2;
 	  my $to_message;
