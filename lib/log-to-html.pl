@@ -6,8 +6,6 @@
 #  
 ######################################################################
 
-my $file_date;
-
 my %nicknames;
 my %nicknamesid;
 my %nicknameanon;
@@ -23,6 +21,7 @@ sub get_file_date {
 	$file_date = $1;
  	print("FILEDATE : $file_date\n");
 	}
+	return $file_date;
 }
 ##
 ## reads irc-log.html and writes it to index.html
@@ -148,7 +147,7 @@ while ( $info[$i] ){
 	close(OUTPUT);
 }
 #clas sub fucktions to make logs =)
-&get_file_date($ARGV[0]);
+my $file_date = &get_file_date($ARGV[0]);
 &write_skells($ARGV[0]);
 &convert_logs($ARGV[0]);
 &write_skells_end($ARGV[0]);
